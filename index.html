@@ -1,215 +1,238 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ANTOJAZO FOOD</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 font-family:'Poppins',sans-serif;
 background:#0d0d12;
 color:white;
+padding-bottom:380px;
 }
 
-header{
-padding:30px 20px;
+.container{
+padding:14px;
 }
 
-.hero{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:25px;
-align-items:center;
-}
-
-.logo{
-font-size:72px;
+.title{
+font-size:42px;
 font-weight:800;
 line-height:.95;
 }
 
-.logo span{
+.title span{
 color:#ffb300;
 }
 
-.hero p{
-margin-top:16px;
-font-size:18px;
-color:#ddd;
-max-width:600px;
-}
-
-.hero-image{
-height:320px;
-border-radius:30px;
-overflow:hidden;
-border:7px solid #ff6a001e;
-}
-
-.hero-image img{
-width:100%;
-height:100%;
-object-fit:cover;
+.subtitle{
+margin-top:10px;
+color:#ccc;
+margin-bottom:18px;
 }
 
 .search{
-padding:0 20px 20px;
-display:flex;
-gap:15px;
-}
-
-.search input{
-flex:1;
-padding:18px;
+width:100%;
+padding:14px;
 border:none;
-border-radius:18px;
-font-size:16px;
-font-family:'Poppins',sans-serif;
-}
-
-.cart-floating{
-background:linear-gradient(135deg,#ffb300,#ff6600);
-padding:18px;
-border-radius:18px;
-font-weight:700;
-color:#111;
-min-width:70px;
-text-align:center;
-}
-
-.categories{
-display:flex;
-gap:12px;
-padding:0 20px 20px;
-overflow:auto;
-}
-
-.categories button{
-border:none;
-padding:12px 20px;
-border-radius:999px;
-background:#1a1a22;
-color:white;
-cursor:pointer;
-font-weight:600;
-}
-
-.categories .active{
-background:linear-gradient(135deg,#ffb300,#ff6600);
-color:#111;
-}
-
-.container{
-display:grid;
-grid-template-columns:1fr 360px;
-gap:25px;
-padding:0 20px 30px;
+border-radius:14px;
+margin-bottom:16px;
+font-size:15px;
 }
 
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-gap:22px;
-align-items:stretch;
+grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
+gap:14px;
 }
 
 .card{
 background:#17171d;
-border-radius:28px;
+border-radius:22px;
 overflow:hidden;
 display:flex;
 flex-direction:column;
-min-height:100%;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-transition:.25s;
-}
-
-.card:hover{
-transform:translateY(-5px);
 }
 
 .card img{
 width:100%;
-height:220px;
+height:140px;
 object-fit:cover;
 }
 
 .card-body{
-padding:18px;
+padding:12px;
 display:flex;
 flex-direction:column;
 flex:1;
 }
 
 .card h3{
-font-size:30px;
-line-height:1.15;
+font-size:20px;
+line-height:1.1;
+min-height:48px;
 margin-bottom:8px;
-min-height:70px;
-display:flex;
-align-items:flex-start;
 }
 
 .card p{
 color:#bbb;
-margin-bottom:14px;
+font-size:13px;
 }
 
 .price{
-font-size:40px;
+font-size:30px;
 font-weight:800;
 color:#ffb300;
 margin-top:auto;
 }
 
 .card button{
-margin-top:18px;
-padding:15px;
+margin-top:12px;
+padding:12px;
 border:none;
-border-radius:16px;
+border-radius:14px;
 background:linear-gradient(135deg,#ffb300,#ff6600);
 font-weight:700;
 cursor:pointer;
-font-family:'Poppins',sans-serif;
 }
 
-aside{
+.cart{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
 background:#17171d;
-padding:22px;
-border-radius:28px;
-height:max-content;
-position:sticky;
-top:20px;
+padding:14px;
+border-top-left-radius:24px;
+border-top-right-radius:24px;
+max-height:48vh;
+overflow:auto;
 }
 
-.cart-item{
-background:#20202a;
-padding:14px;
-border-radius:16px;
+.cart h2{
 margin-bottom:12px;
 }
 
-.notice{
-background:#2b1d0d;
-padding:14px;
-border-radius:16px;
-margin:15px 0;
-color:#ffcc70;
+.cart-item{
+background:#22222c;
+padding:12px;
+border-radius:14px;
+margin-bottom:10px;
 }
 
-aside input,aside textarea,aside select{
+.qty{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
+.qty button{
+width:32px;
+height:32px;
+border:none;
+border-radius:10px;
+background:#ff8800;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.75);
+display:none;
+align-items:center;
+justify-content:center;
+padding:14px;
+z-index:999;
+}
+
+.modal-content{
+background:#17171d;
+width:100%;
+max-width:500px;
+border-radius:24px;
+padding:20px;
+max-height:90vh;
+overflow:auto;
+}
+
+.option-group{
+margin-bottom:18px;
+}
+
+.option-group h4{
+margin-bottom:10px;
+color:#ffb300;
+}
+
+.option{
+background:#22222c;
+padding:12px;
+border-radius:12px;
+margin-bottom:8px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+.cream-note{
+background:#2b1d0d;
+padding:12px;
+border-radius:14px;
+font-size:13px;
+color:#ffcc70;
+margin-bottom:12px;
+}
+
+.add-btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:16px;
+background:#25D366;
+color:white;
+font-weight:700;
+font-size:16px;
+cursor:pointer;
+}
+
+.total{
+font-size:24px;
+font-weight:800;
+color:#ffb300;
+margin-top:10px;
+}
+
+.small{
+font-size:13px;
+color:#bbb;
+margin-top:8px;
+}
+
+.checkout input,
+.checkout textarea{
 width:100%;
 padding:14px;
 border:none;
 border-radius:14px;
-margin-bottom:12px;
-background:#20202a;
+margin-top:12px;
+background:#22222c;
 color:white;
 font-family:'Poppins',sans-serif;
 }
@@ -224,210 +247,604 @@ color:white;
 font-weight:700;
 font-size:16px;
 cursor:pointer;
-font-family:'Poppins',sans-serif;
+margin-top:14px;
 }
 
-@media(max-width:950px){
-.hero,.container{
-grid-template-columns:1fr;
-}
-
-.logo{
-font-size:52px;
-}
-
-aside{
-position:static;
-}
-}
 </style>
 </head>
-
 <body>
 
-<header>
-<div class="hero">
+<div class="container">
 
-<div>
-<div style="background:#24190f;padding:10px 18px;border-radius:999px;display:inline-block;margin-bottom:20px">
-🍗 Delivery moderno
-</div>
-
-<div class="logo">
+<div class="title">
 ANTOJAZO<br>
 <span>FOOD</span>
 </div>
 
-<p>
-Pollo broaster, hamburguesas, salchipapas y combos.
-Sistema moderno preparado para crecer profesionalmente.
-</p>
+<div class="subtitle">
+Pollo broaster, hamburguesas y salchipapas.
 </div>
 
-<div class="hero-image">
-<img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=1200&auto=format&fit=crop">
-</div>
+<input class="search" placeholder="Buscar productos..." onkeyup="searchProducts(this.value)">
 
-</div>
-</header>
-
-<section class="search">
-<input type="text" id="searchInput" placeholder="Buscar pollo, hamburguesa, salchipapa..." onkeyup="searchProducts()">
-<div class="cart-floating" id="cartCount">🛒 0</div>
-</section>
-
-<div class="categories" id="categories"></div>
-
-<div class="container">
-
-<main>
 <div class="products" id="products"></div>
-</main>
 
-<aside>
+</div>
+
+<div class="cart">
+
 <h2>🛒 Tu pedido</h2>
 
 <div id="cart"></div>
 
-<div class="notice">
-🚧 Por ahora solo disponible recojo en local.
-Delivery próximamente.
+<div class="total" id="total">
+S/ 0.00
 </div>
 
-<input placeholder="Nombre">
-<input placeholder="Celular">
-<textarea placeholder="Referencia"></textarea>
+<div class="small">
+🚧 Solo recojo en local por ahora
+</div>
 
-<select>
-<option>Recojo en local</option>
-</select>
+<div class="checkout">
 
-<button class="whatsapp">
+<input type="text" id="clienteNombre" placeholder="Nombre">
+
+<input type="text" id="clienteCelular" placeholder="Celular">
+
+<textarea id="clienteReferencia" placeholder="Referencia"></textarea>
+
+<button class="whatsapp" onclick="sendWhatsApp()">
 Enviar pedido por WhatsApp
 </button>
-</aside>
+
+</div>
+
+</div>
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<h2 id="modalTitle"></h2>
+
+<div id="modalOptions"></div>
+
+<button class="add-btn" onclick="confirmAdd()">
+Agregar al carrito
+</button>
+
+</div>
 
 </div>
 
 <script>
+
+const restaurantPhone="51999999999";
+
+const creamPrice=1;
+
+const creams=[
+"Mayonesa",
+"Ají",
+"Ketchup",
+"Mostaza",
+"Tártara",
+"Golf",
+"Aceituna",
+"Rocoto",
+"BBQ",
+"Picante"
+];
+
 const products=[
 {
 id:1,
-name:"Pollo Broaster 1/8",
-category:"Pollo Broaster",
-price:10,
+name:"Pollo Broaster",
+category:"pollo",
+basePrice:10,
 img:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
 },
 {
 id:2,
-name:"Pollo Broaster 1/4",
-category:"Pollo Broaster",
-price:16,
-img:"https://images.unsplash.com/photo-1562967914-608f82629710?w=1200"
-},
-{
-id:3,
 name:"Hamburguesa Clásica",
-category:"Hamburguesas",
-price:12,
+category:"burger",
+basePrice:12,
 img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
 },
 {
-id:4,
+id:3,
 name:"Salchipapa Especial",
-category:"Salchipapas",
-price:14,
+category:"salchi",
+basePrice:14,
 img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
 }
 ];
 
-const categories=["Todo","Pollo Broaster","Hamburguesas","Salchipapas"];
-
 let cart=[];
-
-function renderCategories(){
-document.getElementById("categories").innerHTML=categories.map((c,i)=>`
-<button class="${i===0?'active':''}" onclick="filterCategory('${c}',this)">${c}</button>
-`).join("");
-}
+let selectedProduct=null;
 
 function renderProducts(list=products){
+
 document.getElementById("products").innerHTML=list.map(p=>`
+
 <div class="card">
+
 <img src="${p.img}">
+
 <div class="card-body">
+
 <h3>${p.name}</h3>
+
 <p>${p.category}</p>
-<div class="price">S/ ${p.price.toFixed(2)}</div>
-<button onclick="addToCart(${p.id})">Pedir ahora</button>
+
+<div class="price">
+S/ ${p.basePrice}
 </div>
+
+<button onclick="openProduct(${p.id})">
+Pedir ahora
+</button>
+
 </div>
-`).join("");
+
+</div>
+
+`).join('');
+
 }
 
-function addToCart(id){
-const product=products.find(p=>p.id===id);
+function searchProducts(value){
 
-cart.push(product);
+value=value.toLowerCase();
+
+const filtered=products.filter(p=>
+p.name.toLowerCase().includes(value)
+);
+
+renderProducts(filtered);
+
+}
+
+function openProduct(id){
+
+selectedProduct=products.find(p=>p.id===id);
+
+document.getElementById("modal").style.display="flex";
+
+document.getElementById("modalTitle").innerHTML=selectedProduct.name;
+
+let html='';
+
+if(selectedProduct.category==="pollo"){
+
+html+=`
+
+<div class="option-group">
+
+<h4>Tamaño</h4>
+
+<div class="option">
+<label>
+<input type="radio" name="size" value="10" checked>
+1/8
+</label>
+
+<span>S/10</span>
+</div>
+
+<div class="option">
+<label>
+<input type="radio" name="size" value="16">
+1/4
+</label>
+
+<span>S/16</span>
+</div>
+
+</div>
+
+<div class="option-group">
+
+<h4>Presa</h4>
+
+<div class="option">
+<label><input type="radio" name="presa" checked> Ala</label>
+</div>
+
+<div class="option">
+<label><input type="radio" name="presa"> Pecho</label>
+</div>
+
+<div class="option">
+<label><input type="radio" name="presa"> Pierna</label>
+</div>
+
+<div class="option">
+<label><input type="radio" name="presa"> Encuentro</label>
+</div>
+
+</div>
+
+<div class="option-group">
+
+<h4>Acompañamientos</h4>
+
+<div class="option">
+<label>
+<input type="radio" name="acom" checked>
+Papas + arroz + ensalada
+</label>
+</div>
+
+<div class="option">
+<label>
+<input type="radio" name="acom">
+Solo papas
+</label>
+</div>
+
+<div class="option">
+<label>
+<input type="radio" name="acom">
+Sin ensalada
+</label>
+</div>
+
+<div class="option">
+
+<label>
+<input type="checkbox" id="chaufa">
+Cambiar arroz por chaufa
+</label>
+
+<span>+S/3</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+if(selectedProduct.category==="burger"){
+
+html+=`
+
+<div class="option-group">
+
+<h4>Extras hamburguesa</h4>
+
+<div class="option">
+<label><input type="checkbox" class="extra" data-price="2"> Queso</label>
+<span>+S/2</span>
+</div>
+
+<div class="option">
+<label><input type="checkbox" class="extra" data-price="3"> Huevo</label>
+<span>+S/3</span>
+</div>
+
+<div class="option">
+<label><input type="checkbox" class="extra" data-price="5"> Doble carne</label>
+<span>+S/5</span>
+</div>
+
+<div class="option">
+<label><input type="checkbox" class="extra" data-price="4"> Papas al hilo</label>
+<span>+S/4</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+if(
+selectedProduct.category==="pollo" ||
+selectedProduct.category==="salchi"
+){
+
+html+=`
+
+<div class="cream-note">
+Puedes elegir hasta 6 cremas GRATIS.
+Las adicionales cuestan S/1 cada una.
+</div>
+
+<div class="option-group">
+
+<h4>Cremas</h4>
+
+${creams.map(c=>`
+
+<div class="option">
+
+<span>${c}</span>
+
+<div class="qty">
+
+<button onclick="changeCream('${c}',-1)">
+-
+</button>
+
+<span id="cream-${c}">
+0
+</span>
+
+<button onclick="changeCream('${c}',1)">
++
+</button>
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+<div class="small" id="creamInfo">
+0/6 gratis · 0 extras
+</div>
+
+`;
+
+}
+
+html+=`
+
+<div class="option-group">
+
+<h4>Cantidad</h4>
+
+<div class="qty">
+
+<button onclick="changeQty(-1)">
+-
+</button>
+
+<span id="qtyValue">
+1
+</span>
+
+<button onclick="changeQty(1)">
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+document.getElementById("modalOptions").innerHTML=html;
+
+window.qty=1;
+window.creamData={};
+
+}
+
+function changeQty(v){
+
+qty+=v;
+
+if(qty<1) qty=1;
+
+document.getElementById("qtyValue").innerHTML=qty;
+
+}
+
+function changeCream(name,v){
+
+if(!creamData[name]){
+creamData[name]=0;
+}
+
+creamData[name]+=v;
+
+if(creamData[name]<0){
+creamData[name]=0;
+}
+
+document.getElementById("cream-"+name).innerHTML=creamData[name];
+
+updateCreamInfo();
+
+}
+
+function updateCreamInfo(){
+
+let total=0;
+
+Object.values(creamData).forEach(v=>{
+total+=v;
+});
+
+let extra=Math.max(0,total-6);
+
+document.getElementById("creamInfo").innerHTML=`
+${Math.min(total,6)}/6 gratis · ${extra} extras
+`;
+
+}
+
+function confirmAdd(){
+
+let price=selectedProduct.basePrice;
+
+if(selectedProduct.category==="pollo"){
+
+price=parseFloat(
+document.querySelector('input[name="size"]:checked').value
+);
+
+if(document.getElementById("chaufa").checked){
+price+=3;
+}
+
+}
+
+document.querySelectorAll(".extra").forEach(e=>{
+
+if(e.checked){
+price+=parseFloat(e.dataset.price);
+}
+
+});
+
+let creamTotal=0;
+
+Object.values(creamData).forEach(v=>{
+creamTotal+=v;
+});
+
+let extraCreams=Math.max(0,creamTotal-6);
+
+price+=extraCreams*creamPrice;
+
+cart.push({
+name:selectedProduct.name,
+qty:qty,
+price:price*qty
+});
 
 renderCart();
+
+document.getElementById("modal").style.display="none";
+
 }
 
 function renderCart(){
-const cartContainer=document.getElementById("cart");
 
 if(cart.length===0){
-cartContainer.innerHTML='<p style="color:#aaa">Tu carrito está vacío</p>';
-document.getElementById("cartCount").innerHTML='🛒 0';
+
+document.getElementById("cart").innerHTML='Carrito vacío';
+
+document.getElementById("total").innerHTML='S/ 0.00';
+
 return;
+
 }
 
 let total=0;
 
-cartContainer.innerHTML=cart.map(item=>{
+document.getElementById("cart").innerHTML=cart.map((item,index)=>{
+
 total+=item.price;
 
 return `
+
 <div class="cart-item">
+
 <b>${item.name}</b>
-<p>S/ ${item.price.toFixed(2)}</p>
+
+<div>
+Cantidad: ${item.qty}
 </div>
-`;
-}).join('')+`
-<hr style="margin:15px 0;border-color:#333">
-<h3>Total: S/ ${total.toFixed(2)}</h3>
+
+<div>
+S/ ${item.price.toFixed(2)}
+</div>
+
+<div class="qty">
+
+<button onclick="minusItem(${index})">
+-
+</button>
+
+<span>
+${item.qty}
+</span>
+
+<button onclick="plusItem(${index})">
++
+</button>
+
+</div>
+
+</div>
+
 `;
 
-document.getElementById("cartCount").innerHTML='🛒 '+cart.length;
+}).join('');
+
+document.getElementById("total").innerHTML='S/ '+total.toFixed(2);
+
 }
 
-function searchProducts(){
-const value=document.getElementById("searchInput").value.toLowerCase();
+function plusItem(i){
 
-const filtered=products.filter(p=>
-p.name.toLowerCase().includes(value)||
-p.category.toLowerCase().includes(value)
-);
+cart[i].qty++;
 
-renderProducts(filtered);
+cart[i].price+=5;
+
+renderCart();
+
 }
 
-function filterCategory(category,btn){
-document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+function minusItem(i){
 
-btn.classList.add("active");
+cart[i].qty--;
 
-if(category==="Todo"){
-renderProducts(products);
+if(cart[i].qty<=0){
+cart.splice(i,1);
+}
+
+renderCart();
+
+}
+
+function sendWhatsApp(){
+
+if(cart.length===0){
+alert("El carrito está vacío");
 return;
 }
 
-renderProducts(products.filter(p=>p.category===category));
+const nombre=document.getElementById("clienteNombre").value;
+const celular=document.getElementById("clienteCelular").value;
+const referencia=document.getElementById("clienteReferencia").value;
+
+let total=0;
+
+let message=`🍗 *PEDIDO ANTOJAZO FOOD* %0A%0A`;
+
+message+=`👤 Nombre: ${nombre}%0A`;
+message+=`📱 Celular: ${celular}%0A`;
+message+=`📍 Referencia: ${referencia}%0A`;
+message+=`🚶 Entrega: Recojo en local%0A%0A`;
+
+message+=`🛒 *PRODUCTOS* %0A`;
+
+cart.forEach(item=>{
+
+total+=item.price;
+
+message+=`• ${item.name} x${item.qty} - S/${item.price.toFixed(2)}%0A`;
+
+});
+
+message+=`%0A💰 *TOTAL: S/${total.toFixed(2)}*`;
+
+window.open(
+`https://wa.me/${restaurantPhone}?text=${message}`,
+'_blank'
+);
+
 }
 
-renderCategories();
+window.onclick=function(e){
+
+if(e.target.id==="modal"){
+document.getElementById("modal").style.display="none";
+}
+
+}
+
 renderProducts();
-renderCart();
+
 </script>
 
 </body>
