@@ -5,165 +5,218 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ANTOJAZO FOOD</title>
-<link rel="manifest" href="manifest.json">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
+
 body{
-margin:0;
 font-family:'Poppins',sans-serif;
-background:#0f0f12;
+background:#0d0d12;
 color:white;
 }
+
 header{
 padding:30px 20px;
 }
+
 .hero{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:25px;
 align-items:center;
 }
+
 .logo{
-font-size:70px;
+font-size:72px;
 font-weight:800;
 line-height:.95;
 }
+
 .logo span{
 color:#ffb300;
 }
+
 .hero p{
+margin-top:16px;
 font-size:18px;
 color:#ddd;
+max-width:600px;
 }
+
 .hero-image{
 height:320px;
 border-radius:30px;
 overflow:hidden;
-border:8px solid #ff5a0020;
+border:7px solid #ff6a001e;
 }
+
 .hero-image img{
 width:100%;
 height:100%;
 object-fit:cover;
 }
+
 .search{
 padding:0 20px 20px;
 display:flex;
 gap:15px;
 }
+
 .search input{
 flex:1;
 padding:18px;
 border:none;
 border-radius:18px;
 font-size:16px;
+font-family:'Poppins',sans-serif;
 }
-.cart-box{
-background:linear-gradient(135deg,#ffb300,#ff5a00);
+
+.cart-floating{
+background:linear-gradient(135deg,#ffb300,#ff6600);
 padding:18px;
 border-radius:18px;
 font-weight:700;
 color:#111;
+min-width:70px;
+text-align:center;
 }
+
 .categories{
 display:flex;
-gap:10px;
+gap:12px;
 padding:0 20px 20px;
 overflow:auto;
 }
+
 .categories button{
 border:none;
-padding:12px 18px;
+padding:12px 20px;
 border-radius:999px;
-background:#1d1d24;
+background:#1a1a22;
 color:white;
 cursor:pointer;
 font-weight:600;
 }
+
 .categories .active{
-background:linear-gradient(135deg,#ffb300,#ff5a00);
+background:linear-gradient(135deg,#ffb300,#ff6600);
 color:#111;
 }
+
 .container{
 display:grid;
-grid-template-columns:1fr 350px;
+grid-template-columns:1fr 360px;
 gap:25px;
 padding:0 20px 30px;
 }
+
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:22px;
+align-items:stretch;
 }
+
 .card{
 background:#17171d;
 border-radius:28px;
 overflow:hidden;
+display:flex;
+flex-direction:column;
+min-height:100%;
 box-shadow:0 10px 30px rgba(0,0,0,.25);
 transition:.25s;
 }
+
 .card:hover{
 transform:translateY(-5px);
 }
+
 .card img{
 width:100%;
 height:220px;
 object-fit:cover;
 }
+
 .card-body{
 padding:18px;
+display:flex;
+flex-direction:column;
+flex:1;
 }
+
 .card h3{
-margin:0 0 8px;
-font-size:22px;
+font-size:30px;
+line-height:1.15;
+margin-bottom:8px;
+min-height:70px;
+display:flex;
+align-items:flex-start;
 }
+
 .card p{
 color:#bbb;
+margin-bottom:14px;
 }
+
 .price{
-font-size:26px;
+font-size:40px;
 font-weight:800;
 color:#ffb300;
-margin-top:12px;
+margin-top:auto;
 }
+
 .card button{
-width:100%;
-margin-top:15px;
-padding:14px;
+margin-top:18px;
+padding:15px;
 border:none;
-border-radius:14px;
-background:linear-gradient(135deg,#ffb300,#ff5a00);
+border-radius:16px;
+background:linear-gradient(135deg,#ffb300,#ff6600);
 font-weight:700;
 cursor:pointer;
+font-family:'Poppins',sans-serif;
 }
+
 aside{
 background:#17171d;
 padding:22px;
 border-radius:28px;
 height:max-content;
+position:sticky;
+top:20px;
 }
+
+.cart-item{
+background:#20202a;
+padding:14px;
+border-radius:16px;
+margin-bottom:12px;
+}
+
 .notice{
 background:#2b1d0d;
 padding:14px;
 border-radius:16px;
+margin:15px 0;
 color:#ffcc70;
-margin-top:15px;
 }
+
 aside input,aside textarea,aside select{
 width:100%;
 padding:14px;
 border:none;
 border-radius:14px;
-margin-top:12px;
+margin-bottom:12px;
 background:#20202a;
 color:white;
 font-family:'Poppins',sans-serif;
 }
+
 .whatsapp{
 width:100%;
 padding:16px;
-margin-top:15px;
 border:none;
 border-radius:16px;
 background:#25D366;
@@ -171,13 +224,20 @@ color:white;
 font-weight:700;
 font-size:16px;
 cursor:pointer;
+font-family:'Poppins',sans-serif;
 }
+
 @media(max-width:950px){
 .hero,.container{
 grid-template-columns:1fr;
 }
+
 .logo{
 font-size:52px;
+}
+
+aside{
+position:static;
 }
 }
 </style>
@@ -189,7 +249,7 @@ font-size:52px;
 <div class="hero">
 
 <div>
-<div style="background:#24190f;display:inline-block;padding:10px 18px;border-radius:999px;margin-bottom:20px;">
+<div style="background:#24190f;padding:10px 18px;border-radius:999px;display:inline-block;margin-bottom:20px">
 🍗 Delivery moderno
 </div>
 
@@ -199,8 +259,8 @@ ANTOJAZO<br>
 </div>
 
 <p>
-Pollo broaster, hamburguesas, salchipapas, combos y más.
-Sistema moderno y profesional.
+Pollo broaster, hamburguesas, salchipapas y combos.
+Sistema moderno preparado para crecer profesionalmente.
 </p>
 </div>
 
@@ -213,7 +273,7 @@ Sistema moderno y profesional.
 
 <section class="search">
 <input type="text" id="searchInput" placeholder="Buscar pollo, hamburguesa, salchipapa..." onkeyup="searchProducts()">
-<div class="cart-box">🛒 0</div>
+<div class="cart-floating" id="cartCount">🛒 0</div>
 </section>
 
 <div class="categories" id="categories"></div>
@@ -245,7 +305,6 @@ Delivery próximamente.
 <button class="whatsapp">
 Enviar pedido por WhatsApp
 </button>
-
 </aside>
 
 </div>
@@ -253,38 +312,38 @@ Enviar pedido por WhatsApp
 <script>
 const products=[
 {
+id:1,
 name:"Pollo Broaster 1/8",
 category:"Pollo Broaster",
 price:10,
 img:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
 },
 {
+id:2,
 name:"Pollo Broaster 1/4",
 category:"Pollo Broaster",
 price:16,
 img:"https://images.unsplash.com/photo-1562967914-608f82629710?w=1200"
 },
 {
+id:3,
 name:"Hamburguesa Clásica",
 category:"Hamburguesas",
 price:12,
 img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
 },
 {
+id:4,
 name:"Salchipapa Especial",
 category:"Salchipapas",
 price:14,
 img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
-},
-{
-name:"Combo Broaster",
-category:"Combos",
-price:22,
-img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=1200"
 }
 ];
 
-const categories=["Todo","Pollo Broaster","Hamburguesas","Salchipapas","Combos"];
+const categories=["Todo","Pollo Broaster","Hamburguesas","Salchipapas"];
+
+let cart=[];
 
 function renderCategories(){
 document.getElementById("categories").innerHTML=categories.map((c,i)=>`
@@ -300,10 +359,46 @@ document.getElementById("products").innerHTML=list.map(p=>`
 <h3>${p.name}</h3>
 <p>${p.category}</p>
 <div class="price">S/ ${p.price.toFixed(2)}</div>
-<button>Pedir ahora</button>
+<button onclick="addToCart(${p.id})">Pedir ahora</button>
 </div>
 </div>
 `).join("");
+}
+
+function addToCart(id){
+const product=products.find(p=>p.id===id);
+
+cart.push(product);
+
+renderCart();
+}
+
+function renderCart(){
+const cartContainer=document.getElementById("cart");
+
+if(cart.length===0){
+cartContainer.innerHTML='<p style="color:#aaa">Tu carrito está vacío</p>';
+document.getElementById("cartCount").innerHTML='🛒 0';
+return;
+}
+
+let total=0;
+
+cartContainer.innerHTML=cart.map(item=>{
+total+=item.price;
+
+return `
+<div class="cart-item">
+<b>${item.name}</b>
+<p>S/ ${item.price.toFixed(2)}</p>
+</div>
+`;
+}).join('')+`
+<hr style="margin:15px 0;border-color:#333">
+<h3>Total: S/ ${total.toFixed(2)}</h3>
+`;
+
+document.getElementById("cartCount").innerHTML='🛒 '+cart.length;
 }
 
 function searchProducts(){
@@ -319,6 +414,7 @@ renderProducts(filtered);
 
 function filterCategory(category,btn){
 document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+
 btn.classList.add("active");
 
 if(category==="Todo"){
@@ -331,6 +427,7 @@ renderProducts(products.filter(p=>p.category===category));
 
 renderCategories();
 renderProducts();
+renderCart();
 </script>
 
 </body>
