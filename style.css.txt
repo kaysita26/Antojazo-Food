@@ -1,0 +1,60 @@
+*{
+  width:100%;
+  border:none;
+  padding:16px;
+  border-radius:16px;
+  font-weight:700;
+  margin-top:20px;
+  cursor:pointer;
+}
+
+.main-btn{
+  background:#ffb300;
+}
+
+.whatsapp-btn{
+  background:#25D366;
+  color:white;
+}
+
+.cart-item{
+  background:#111827;
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:12px;
+}
+
+.delivery-type{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:20px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  border:none;
+  background:#111827;
+  color:white;
+  padding:14px;
+  border-radius:14px;
+  margin-top:12px;
+  font-family:'Poppins',sans-serif;
+}
+
+.summary{
+  margin-top:20px;
+}
+
+.summary div{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+}
+
+.total-row{
+  font-size:24px;
+  font-weight:800;
+  color:#ffb300;
+}

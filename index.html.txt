@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+      <h2>Tu pedido</h2>
+
+      <div id="cartItems"></div>
+
+      <div class="delivery-type">
+        <label>
+          <input type="radio" name="deliveryType" value="local" checked onchange="toggleDelivery()">
+          Recojo en local
+        </label>
+
+        <label>
+          <input type="radio" name="deliveryType" value="delivery" onchange="toggleDelivery()">
+          Delivery
+        </label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="customerName" placeholder="Nombre">
+      </div>
+
+      <div id="deliveryFields" style="display:none;">
+
+        <div class="form-group">
+          <input type="text" id="customerPhone" placeholder="Celular">
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="customerAddress" placeholder="Dirección">
+        </div>
+
+        <div class="form-group">
+          <textarea id="customerReference" placeholder="Referencia"></textarea>
+        </div>
+
+      </div>
+
+      <div class="summary">
+        <div>
+          <span>Subtotal</span>
+          <span id="subtotal">S/0</span>
+        </div>
+
+        <div>
+          <span>Delivery</span>
+          <span id="deliveryPrice">S/0</span>
+        </div>
+
+        <div class="total-row">
+          <span>Total</span>
+          <span id="total">S/0</span>
+        </div>
+      </div>
+
+      <button class="whatsapp-btn" onclick="sendWhatsApp()">
+        📲 Enviar pedido
+      </button>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
