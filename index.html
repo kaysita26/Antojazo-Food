@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANTOJAZO FOOD</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff3d00">
+  <style>
+    :root{
+      --rojo:#ff3d00;
+      --amarillo:#ffc107;
+      --negro:#151515;
+      --gris:#f5f5f5;
+      --verde:#25D366;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:var(--gris);
+      color:#222;
+    }
+    header{
+      background:linear-gradient(135deg,#ff3d00,#ff9800);
+      color:white;
+      padding:18px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 4px 15px #0003;
+    }
+    header h1{margin:0;font-size:26px}
+    header p{margin:4px 0 0}
+    nav{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding:12px;
+      background:white;
+      position:sticky;
+      top:82px;
+      z-index:9;
+    }
+    nav button{
+      border:none;
+      background:#ffe0b2;
+      padding:10px 14px;
+      border-radius:20px;
+      font-weight:bold;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    nav button.active{
+      background:var(--rojo);
+      color:white;
+    }
+    .container{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:18px;
+      padding:18px;
+    }
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:white;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 6px 18px #0001;
+    }
+    .card img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+    }
+    .card-body{padding:14px}
+    .card h3{margin:0 0 6px}
+    .price{
+      color:var(--rojo);
+      font-size:20px;
+      font-weight:bold;
+    }
+    .btn{
+      border:none;
+      padding:11px 14px;
+      border-radius:12px;
+      font-weight:bold;
+      cursor:pointer;
+      width:100%;
+      margin-top:8px;
+    }
+    .btn-main{background:var(--rojo);color:white}
+    .btn-green{background:var(--verde);color:white}
+    .btn-dark{background:var(--negro);color:white}
+    aside{
+      background:white;
+      border-radius:20px;
+      padding:16px;
+      box-shadow:0 6px 18px #0002;
+      height:max-content;
+      position:sticky;
+      top:145px;
+    }
+    .cart-item{
+      border-bottom:1px solid #ddd;
+      padding:10px 0;
+      font-size:14px;
+    }
+    .cart-item b{display:block}
+    input,select,textarea{
+      width:100%;
+      padding:10px;
+      border:1px solid #ddd;
+      border-radius:10px;
+      margin:5px 0 10px;
+    }
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:#0009;
+      z-index:99;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+    .modal-content{
+      background:white;
+      border-radius:20px;
+      padding:18px;
+      max-width:520px;
+      width:100%;
+      max-height:90vh;
+      overflow:auto;
+    }
+    .cream-row{
+      display:grid;
+      grid-template-columns:1fr 80px;
+      gap:8px;
+      align-items:center;
+    }
+    .admin{
+      display:none;
+      padding:18px;
+    }
+    .admin-box{
+      background:white;
+      padding:15px;
+      border-radius:15px;
+      margin-bottom:12px;
+    }
+    .badge{
+      display:inline-block;
+      background:#fff3cd;
+      padding:5px 8px;
+      border-radius:8px;
+      margin:3px;
+      font-size:13px;
+    }
+    @media(max-width:850px){
+      .container{grid-template-columns:1fr}
+      aside{position:static}
+      nav{top:76px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ANTOJAZO FOOD 🍗🍔</h1>
+  <p>Broaster, hamburguesas, salchipapas y más</p>
+</header>
+
+<nav id="categories"></nav>
+
+<div class="container">
+  <main>
+    <div class="products" id="products"></div>
+  </main>
+
+  <aside>
+    <h2>🛒 Carrito</h2>
+    <div id="cart"></div>
+
+    <hr>
+    <p>Subtotal: <b>S/ <span id="subtotal">0.00</span></b></p>
+
+    <label>Método de entrega</label>
+    <select id="deliveryType" onchange="renderCart()">
+      <option value="delivery">Delivery</option>
+      <option value="recojo">Recojo en local</option>
+    </select>
+
+    <label>Costo delivery</label>
+    <input type="number" id="deliveryCost" value="5" onchange="renderCart()">
+
+    <h2>Total: S/ <span id="total">0.00</span></h2>
+
+    <h3>Datos del cliente</h3>
+    <input id="name" placeholder="Nombre">
+    <input id="phone" placeholder="Celular">
+    <input id="address" placeholder="Dirección">
+    <input id="reference" placeholder="Referencia">
+
+    <button class="btn btn-green" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
+    <button class="btn btn-dark" onclick="showAdmin()">Panel administrador</button>
+  </aside>
+</div>
+
+<section class="admin" id="admin">
+  <h2>Panel administrador</h2>
+
+  <div class="admin-box">
+    <h3>Pedidos recibidos</h3>
+    <div id="orders"></div>
+  </div>
+
+  <div class="admin-box">
+    <h3>Resumen</h3>
+    <p>Ventas del día: S/ <b id="sales">0.00</b></p>
+    <p>Ganancia estimada: S/ <b id="profit">0.00</b></p>
+  </div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="modalTitle"></h2>
+    <div id="modalOptions"></div>
+    <button class="btn btn-main" onclick="addConfiguredProduct()">Agregar al carrito</button>
+    <button class="btn" onclick="closeModal()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+const WHATSAPP = "51999999999"; // CAMBIA AQUÍ TU NÚMERO CON 51
+
+const config = {
+  creamFreeLimit: 6,
+  extraCreamPrice: 0.50,
+  chaufaExtra: 2.00,
+  deliveryDefault: 5
+};
+
+const creams = [
+  "Mayonesa","Ají","Ketchup","Mostaza","Tártara",
+  "Golf","Aceituna","Rocoto","BBQ","Huancaína"
+];
+
+let products = [
+  {
+    id:1,
+    name:"Pollo Broaster 1/8",
+    category:"Pollo Broaster",
+    price:10,
+    cost:6,
+    img:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800",
+    type:"broaster"
+  },
+  {
+    id:2,
+    name:"Pollo Broaster 1/4",
+    category:"Pollo Broaster",
+    price:16,
+    cost:9,
+    img:"https://images.unsplash.com/photo-1562967914-608f82629710?w=800",
+    type:"broaster"
+  },
+  {
+    id:3,
+    name:"Hamburguesa Clásica",
+    category:"Hamburguesas",
+    price:9,
+    cost:5,
+    img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    type:"burger"
+  },
+  {
+    id:4,
+    name:"Salchipapa Personal",
+    category:"Salchipapas",
+    price:8,
+    cost:4,
+    img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800",
+    type:"salchi"
+  },
+  {
+    id:5,
+    name:"Gaseosa Personal",
+    category:"Bebidas",
+    price:3,
+    cost:2,
+    img:"https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=800",
+    type:"simple"
+  },
+  {
+    id:6,
+    name:"Combo Broaster + Gaseosa",
+    category:"Combos",
+    price:18,
+    cost:10,
+    img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=800",
+    type:"broaster"
+  }
+];
+
+let cart = JSON.parse(localStorage.getItem("cartAntojazo")) || [];
+let orders = JSON.parse(localStorage.getItem("ordersAntojazo")) || [];
+let selectedProduct = null;
+let selectedConfig = {};
+
+function money(n){ return Number(n).toFixed(2); }
+
+function renderCategories(){
+  const cats = ["Todo", ...new Set(products.map(p=>p.category))];
+  categories.innerHTML = cats.map(c =>
+    `<button onclick="filterCategory('${c}', this)" class="${c==='Todo'?'active':''}">${c}</button>`
+  ).join("");
+}
+
+function filterCategory(cat, btn){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderProducts(cat);
+}
+
+function renderProducts(cat="Todo"){
+  const list = cat==="Todo" ? products : products.filter(p=>p.category===cat);
+  productsDiv = document.getElementById("products");
+  productsDiv.innerHTML = list.map(p=>`
+    <div class="card">
+      <img src="${p.img}">
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <p>${p.category}</p>
+        <div class="price">S/ ${money(p.price)}</div>
+        <button class="btn btn-main" onclick="openProduct(${p.id})">Pedir</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openProduct(id){
+  selectedProduct = products.find(p=>p.id===id);
+  selectedConfig = {
+    presa:"Pierna",
+    acompanamiento:"Completo",
+    chaufa:false,
+    creams:{},
+    extras:[]
+  };
+
+  modalTitle.innerText = selectedProduct.name;
+  let html = "";
+
+  if(selectedProduct.type === "broaster"){
+    html += `
+      <label>Tipo de presa</label>
+      <select id="presa">
+        <option>Ala</option>
+        <option>Pecho</option>
+        <option>Pierna</option>
+        <option>Encuentro</option>
+      </select>
+
+      <label>Acompañamiento</label>
+      <select id="acompanamiento">
+        <option>Completo: papas + arroz + ensalada</option>
+        <option>Sin arroz</option>
+        <option>Sin ensalada</option>
+        <option>Solo papas</option>
+      </select>
+
+      <label>
+        <input type="checkbox" id="chaufa"> Cambiar arroz por chaufa + S/ ${money(config.chaufaExtra)}
+      </label>
+
+      <h3>Cremas</h3>
+      <p id="creamCounter"></p>
+      ${creamInputs()}
+    `;
+  }
+
+  if(selectedProduct.type === "burger"){
+    html += `
+      <h3>Extras</h3>
+      ${extraCheck("Queso",1)}
+      ${extraCheck("Huevo",1.5)}
+      ${extraCheck("Tocino",2)}
+      ${extraCheck("Papas grandes",3)}
+    `;
+  }
+
+  if(selectedProduct.type === "salchi"){
+    html += `
+      <label>Tamaño</label>
+      <select id="size">
+        <option value="0">Personal</option>
+        <option value="5">Grande + S/ 5.00</option>
+        <option value="9">Familiar + S/ 9.00</option>
+      </select>
+
+      <h3>Extras</h3>
+      ${extraCheck("Queso",1.5)}
+      ${extraCheck("Huevo",1.5)}
+      ${extraCheck("Hot dog extra",2)}
+
+      <h3>Cremas</h3>
+      <p id="creamCounter"></p>
+      ${creamInputs()}
+    `;
+  }
+
+  if(selectedProduct.type === "simple"){
+    html += `<p>Producto sin personalización.</p>`;
+  }
+
+  modalOptions.innerHTML = html;
+  modal.style.display="flex";
+  updateCreamCounter();
+}
+
+function creamInputs(){
+  return creams.map(c=>`
+    <div class="cream-row">
+      <label>${c}</label>
+      <input type="number" min="0" value="0" data-cream="${c}" oninput="updateCreamCounter()">
+    </div>
+  `).join("");
+}
+
+function extraCheck(name, price){
+  return `
+    <label>
+      <input type="checkbox" class="extra" data-name="${name}" data-price="${price}">
+      ${name} + S/ ${money(price)}
+    </label><br>
+  `;
+}
+
+function updateCreamCounter(){
+  const inputs = document.querySelectorAll("[data-cream]");
+  let total = 0;
+  inputs.forEach(i=> total += Number(i.value || 0));
+  let extra = Math.max(0,total - config.creamFreeLimit);
+  if(document.getElementById("creamCounter")){
+    creamCounter.innerHTML = `
+      Cremas gratis usadas: <b>${Math.min(total, config.creamFreeLimit)}</b> / ${config.creamFreeLimit}<br>
+      Cremas extra con costo: <b>${extra}</b><br>
+      Costo adicional: <b>S/ ${money(extra * config.extraCreamPrice)}</b>
+    `;
+  }
+}
+
+function addConfiguredProduct(){
+  let finalPrice = selectedProduct.price;
+  let notes = [];
+  let creamTotal = 0;
+  let creamDetail = [];
+
+  if(document.getElementById("presa")){
+    notes.push("Presa: " + presa.value);
+    notes.push("Acompañamiento: " + acompanamiento.value);
+    if(chaufa.checked){
+      finalPrice += config.chaufaExtra;
+      notes.push("Cambio a arroz chaufa");
+    }
+  }
+
+  document.querySelectorAll("[data-cream]").forEach(i=>{
+    const qty = Number(i.value || 0);
+    if(qty > 0){
+      creamTotal += qty;
+      creamDetail.push(`${i.dataset.cream} x${qty}`);
+    }
+  });
+
+  if(creamTotal > 0){
+    const extraCreams = Math.max(0, creamTotal - config.creamFreeLimit);
+    finalPrice += extraCreams * config.extraCreamPrice;
+    notes.push("Cremas: " + creamDetail.join(", "));
+    if(extraCreams > 0) notes.push(`Cremas extra: ${extraCreams}`);
+  }
+
+  document.querySelectorAll(".extra:checked").forEach(e=>{
+    finalPrice += Number(e.dataset.price);
+    notes.push(`${e.dataset.name} + S/ ${money(e.dataset.price)}`);
+  });
+
+  if(document.getElementById("size")){
+    const add = Number(size.value);
+    finalPrice += add;
+    if(add > 0) notes.push("Tamaño especial + S/ " + money(add));
+  }
+
+  cart.push({
+    name:selectedProduct.name,
+    price:finalPrice,
+    cost:selectedProduct.cost,
+    qty:1,
+    notes
+  });
+
+  saveCart();
+  closeModal();
+  renderCart();
+}
+
+function renderCart(){
+  let subtotalValue = 0;
+  cart.innerHTML = cart.map((item,index)=>{
+    subtotalValue += item.price * item.qty;
+    return `
+      <div class="cart-item">
+        <b>${item.name}</b>
+        <small>${item.notes.join(" | ")}</small><br>
+        S/ ${money(item.price)} x 
+        <input type="number" value="${item.qty}" min="1" style="width:60px" onchange="changeQty(${index},this.value)">
+        <button onclick="removeItem(${index})">Eliminar</button>
+      </div>
+    `;
+  }).join("");
+
+  let delivery = deliveryType.value === "delivery" ? Number(deliveryCost.value || 0) : 0;
+  subtotal.innerText = money(subtotalValue);
+  total.innerText = money(subtotalValue + delivery);
+}
+
+function changeQty(i,qty){
+  cart[i].qty = Number(qty);
+  saveCart();
+  renderCart();
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  saveCart();
+  renderCart();
+}
+
+function saveCart(){
+  localStorage.setItem("cartAntojazo", JSON.stringify(cart));
+}
+
+function sendWhatsApp(){
+  if(cart.length === 0) return alert("Tu carrito está vacío");
+
+  const client = {
+    name:name.value,
+    phone:phone.value,
+    address:address.value,
+    reference:reference.value,
+    type:deliveryType.value
+  };
+
+  if(!client.name || !client.phone){
+    return alert("Completa nombre y celular");
+  }
+
+  let subtotalValue = cart.reduce((a,b)=>a + b.price*b.qty,0);
+  let delivery = client.type === "delivery" ? Number(deliveryCost.value || 0) : 0;
+  let final = subtotalValue + delivery;
+
+  let text = `🍗 *NUEVO PEDIDO - ANTOJAZO FOOD*%0A%0A`;
+  text += `👤 Cliente: ${client.name}%0A`;
+  text += `📱 Celular: ${client.phone}%0A`;
+  text += `🚚 Entrega: ${client.type}%0A`;
+  if(client.type === "delivery"){
+    text += `📍 Dirección: ${client.address}%0A`;
+    text += `🏠 Referencia: ${client.reference}%0A`;
+  }
+  text += `%0A🛒 *Pedido:*%0A`;
+
+  cart.forEach(item=>{
+    text += `%0A• ${item.name} x${item.qty} - S/ ${money(item.price*item.qty)}%0A`;
+    if(item.notes.length) text += `  ${item.notes.join(" | ")}%0A`;
+  });
+
+  text += `%0ASubtotal: S/ ${money(subtotalValue)}%0A`;
+  text += `Delivery: S/ ${money(delivery)}%0A`;
+  text += `TOTAL: S/ ${money(final)}%0A`;
+
+  orders.push({
+    date:new Date().toLocaleString(),
+    client,
+    cart,
+    total:final,
+    status:"nuevo"
+  });
+
+  localStorage.setItem("ordersAntojazo", JSON.stringify(orders));
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${text}`, "_blank");
+}
+
+function showAdmin(){
+  const pass = prompt("Clave de administrador:");
+  if(pass !== "1234") return alert("Clave incorrecta");
+  admin.style.display="block";
+  renderOrders();
+  window.scrollTo(0,document.body.scrollHeight);
+}
+
+function renderOrders(){
+  let salesTotal = orders.reduce((a,o)=>a+o.total,0);
+  let profitTotal = orders.reduce((a,o)=>{
+    let cost = o.cart.reduce((x,i)=>x+i.cost*i.qty,0);
+    return a + (o.total - cost);
+  },0);
+
+  sales.innerText = money(salesTotal);
+  profit.innerText = money(profitTotal);
+
+  ordersDiv = document.getElementById("orders");
+  ordersDiv.innerHTML = orders.map((o,i)=>`
+    <div class="admin-box">
+      <b>${o.date}</b><br>
+      Cliente: ${o.client.name}<br>
+      Total: S/ ${money(o.total)}<br>
+      Estado:
+      <select onchange="orders[${i}].status=this.value; localStorage.setItem('ordersAntojazo',JSON.stringify(orders));">
+        ${["nuevo","preparando","listo","entregado"].map(s=>`
+          <option ${o.status===s?"selected":""}>${s}</option>
+        `).join("")}
+      </select>
+      <br>
+      ${o.cart.map(p=>`<span class="badge">${p.name} x${p.qty}</span>`).join("")}
+    </div>
+  `).join("");
+}
+
+function closeModal(){
+  modal.style.display="none";
+}
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js");
+}
+
+renderCategories();
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>
