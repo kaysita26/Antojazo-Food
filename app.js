@@ -1,5 +1,9 @@
 const WHATSAPP = "51992044102";
 
+/* ========================= */
+/* PRODUCTOS */
+/* ========================= */
+
 const products = [
 
 {
@@ -36,21 +40,36 @@ image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
 
 ];
 
+/* ========================= */
+/* 6 CREMAS */
+/* ========================= */
+
 const sauces = [
+
 "Mayonesa",
-"Tártara",
-"Aceituna",
-"Mostaza",
-"Ketchup",
 "Ají",
+"Ketchup",
+"Mostaza",
+"Tártara",
+"Aceituna"
+
 ];
+
+/* ========================= */
+
+const sauceQuantities =
+new Array(6).fill(0);
 
 let cart = [];
 let selectedProduct = null;
 let qty = 1;
 
+/* ========================= */
+
 renderProducts(products);
 
+/* ========================= */
+/* RENDER PRODUCTOS */
 /* ========================= */
 
 function renderProducts(list){
@@ -90,12 +109,16 @@ Personalizar
 }
 
 /* ========================= */
+/* FILTROS */
+/* ========================= */
 
 function filterProducts(category){
 
 if(category === "all"){
+
 renderProducts(products);
 return;
+
 }
 
 renderProducts(
@@ -107,6 +130,8 @@ p => p.category === category
 }
 
 /* ========================= */
+/* ABRIR PRODUCTO */
+/* ========================= */
 
 function openProduct(id){
 
@@ -114,6 +139,14 @@ selectedProduct =
 products.find(p => p.id === id);
 
 qty = 1;
+
+/* RESETEAR CREMAS */
+
+for(let i=0;i<sauceQuantities.length;i++){
+
+sauceQuantities[i] = 0;
+
+}
 
 document.getElementById("productModal").style.display =
 "flex";
@@ -138,9 +171,9 @@ html += `
 
 <h4>Tamaño</h4>
 
-<div class="option-row compact">
+<div class="option-row">
 
-<label class="option small">
+<label class="option">
 
 <input
 type="radio"
@@ -164,7 +197,7 @@ S/10
 
 </label>
 
-<label class="option small">
+<label class="option">
 
 <input
 type="radio"
@@ -191,12 +224,16 @@ S/16
 
 </div>
 
+/* ========================= */
+/* PRESAS */
+/* ========================= */
+
 <div class="option-group">
 
 <h4>Presa</h4>
 
 <div
-class="option-row compact"
+class="option-row"
 id="presaOptions"
 >
 
@@ -204,28 +241,32 @@ id="presaOptions"
 
 </div>
 
+/* ========================= */
+/* GUARNICIONES */
+/* ========================= */
+
 <div class="option-group">
 
 <h4>Guarniciones</h4>
 
-<div class="option-row compact">
+<div class="option-row">
 
-<label class="option small">
+<label class="option">
 <input type="checkbox" checked>
 <div class="option-title">Papas</div>
 </label>
 
-<label class="option small">
+<label class="option">
 <input type="checkbox" checked id="riceCheck">
 <div class="option-title">Arroz</div>
 </label>
 
-<label class="option small">
+<label class="option">
 <input type="checkbox" checked>
 <div class="option-title">Ensalada</div>
 </label>
 
-<label class="option small">
+<label class="option">
 
 <input
 type="checkbox"
@@ -251,6 +292,10 @@ Chaufa
 
 </div>
 
+/* ========================= */
+/* CREMAS */
+/* ========================= */
+
 <div class="option-group">
 
 <h4>
@@ -267,7 +312,9 @@ font-weight:700;
 "
 id="sauceInfo"
 >
+
 0 envases
+
 </div>
 
 </div>
@@ -277,8 +324,14 @@ id="sauceInfo"
 }
 
 /* ========================= */
+/* CANTIDAD */
+/* ========================= */
 
 html += `
+
+<div class="option-group">
+
+<h4>Cantidad</h4>
 
 <div class="qty">
 
@@ -296,6 +349,12 @@ html += `
 
 </div>
 
+</div>
+
+/* ========================= */
+/* OBSERVACIONES */
+/* ========================= */
+
 <div class="form-group">
 
 <textarea
@@ -304,6 +363,10 @@ placeholder="Observaciones (opcional)"
 ></textarea>
 
 </div>
+
+/* ========================= */
+/* BOTON */
+/* ========================= */
 
 <button
 class="main-btn"
@@ -326,6 +389,8 @@ changeChickenOptions("1/8");
 }
 
 /* ========================= */
+/* CAMBIAR PRESAS */
+/* ========================= */
 
 function changeChickenOptions(type){
 
@@ -338,22 +403,22 @@ if(type === "1/8"){
 
 container.innerHTML = `
 
-<label class="option small">
+<label class="option">
 <input type="radio" name="presa" checked>
 <div class="option-title">Pecho</div>
 </label>
 
-<label class="option small">
+<label class="option">
 <input type="radio" name="presa">
 <div class="option-title">Ala</div>
 </label>
 
-<label class="option small">
+<label class="option">
 <input type="radio" name="presa">
 <div class="option-title">Pierna</div>
 </label>
 
-<label class="option small">
+<label class="option">
 <input type="radio" name="presa">
 <div class="option-title">Encuentro</div>
 </label>
@@ -364,14 +429,14 @@ container.innerHTML = `
 
 container.innerHTML = `
 
-<label class="option small">
+<label class="option">
 <input type="radio" name="presa" checked>
 <div class="option-title">
 Pecho + Ala
 </div>
 </label>
 
-<label class="option small">
+<label class="option">
 <input type="radio" name="presa">
 <div class="option-title">
 Pierna + Encuentro
@@ -384,6 +449,8 @@ Pierna + Encuentro
 
 }
 
+/* ========================= */
+/* CHAUFA */
 /* ========================= */
 
 function toggleChaufa(){
@@ -406,6 +473,8 @@ rice.checked = true;
 
 }
 
+/* ========================= */
+/* CREMAS */
 /* ========================= */
 
 function renderSauces(){
@@ -447,15 +516,17 @@ ${sauce}
 }
 
 /* ========================= */
-
-const sauceQuantities = new Array(6).fill(0);
+/* CAMBIAR CREMAS */
+/* ========================= */
 
 function changeSauce(index,value){
 
 sauceQuantities[index] += value;
 
 if(sauceQuantities[index] < 0){
+
 sauceQuantities[index] = 0;
+
 }
 
 document.getElementById(
@@ -467,6 +538,8 @@ updateSauceInfo();
 
 }
 
+/* ========================= */
+/* INFO CREMAS */
 /* ========================= */
 
 function updateSauceInfo(){
@@ -481,8 +554,7 @@ let extra = 0;
 
 if(total > 6){
 
-extra =
-Math.ceil((total - 6)/1);
+extra = total - 6;
 
 }
 
@@ -499,13 +571,17 @@ ${extra > 0
 }
 
 /* ========================= */
+/* CANTIDAD */
+/* ========================= */
 
 function changeQty(value){
 
 qty += value;
 
 if(qty < 1){
+
 qty = 1;
+
 }
 
 document.getElementById("qtyText").innerHTML =
@@ -513,6 +589,8 @@ qty;
 
 }
 
+/* ========================= */
+/* CERRAR */
 /* ========================= */
 
 function closeModal(id){
@@ -522,6 +600,8 @@ document.getElementById(id).style.display =
 
 }
 
+/* ========================= */
+/* AGREGAR CARRITO */
 /* ========================= */
 
 function addToCart(){
@@ -589,6 +669,8 @@ closeModal("productModal");
 }
 
 /* ========================= */
+/* ACTUALIZAR CARRITO */
+/* ========================= */
 
 function updateCart(){
 
@@ -623,6 +705,8 @@ document.getElementById("cartFloat").innerHTML =
 }
 
 /* ========================= */
+/* ABRIR CARRITO */
+/* ========================= */
 
 function openCart(){
 
@@ -634,6 +718,8 @@ renderCart();
 }
 
 /* ========================= */
+/* ELIMINAR */
+/* ========================= */
 
 function removeCartItem(id){
 
@@ -643,10 +729,13 @@ item => item.id !== id
 );
 
 renderCart();
+
 updateCart();
 
 }
 
+/* ========================= */
+/* RENDER CARRITO */
 /* ========================= */
 
 function renderCart(){
@@ -706,7 +795,9 @@ border-radius:10px;
 cursor:pointer;
 "
 >
+
 X
+
 </button>
 
 </div>
@@ -725,6 +816,8 @@ document.getElementById("total").innerHTML =
 
 }
 
+/* ========================= */
+/* WHATSAPP */
 /* ========================= */
 
 function sendWhatsApp(){
