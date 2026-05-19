@@ -38,15 +38,11 @@ image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
 
 const sauces = [
 "Mayonesa",
-"Ají",
-"Ketchup",
-"Mostaza",
 "Tártara",
-"Golf",
-"BBQ",
-"Olivo",
-"Picante",
-"Rocoto"
+"Aceituna",
+"Mostaza",
+"Ketchup",
+"Ají",
 ];
 
 let cart = [];
@@ -452,7 +448,7 @@ ${sauce}
 
 /* ========================= */
 
-const sauceQuantities = new Array(10).fill(0);
+const sauceQuantities = new Array(6).fill(0);
 
 function changeSauce(index,value){
 
