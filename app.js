@@ -41,7 +41,7 @@ image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
 ];
 
 /* ========================= */
-/* 6 CREMAS */
+/* SOLO 6 CREMAS */
 /* ========================= */
 
 const sauces = [
@@ -55,10 +55,8 @@ const sauces = [
 
 ];
 
-/* ========================= */
-
 const sauceQuantities =
-new Array(6).fill(0);
+new Array(sauces.length).fill(0);
 
 let cart = [];
 let selectedProduct = null;
@@ -69,7 +67,7 @@ let qty = 1;
 renderProducts(products);
 
 /* ========================= */
-/* RENDER PRODUCTOS */
+/* PRODUCTOS */
 /* ========================= */
 
 function renderProducts(list){
@@ -224,9 +222,7 @@ S/16
 
 </div>
 
-/* ========================= */
 /* PRESAS */
-/* ========================= */
 
 <div class="option-group">
 
@@ -241,9 +237,7 @@ id="presaOptions"
 
 </div>
 
-/* ========================= */
 /* GUARNICIONES */
-/* ========================= */
 
 <div class="option-group">
 
@@ -292,9 +286,7 @@ Chaufa
 
 </div>
 
-/* ========================= */
 /* CREMAS */
-/* ========================= */
 
 <div class="option-group">
 
@@ -351,9 +343,7 @@ html += `
 
 </div>
 
-/* ========================= */
 /* OBSERVACIONES */
-/* ========================= */
 
 <div class="form-group">
 
@@ -364,9 +354,7 @@ placeholder="Observaciones (opcional)"
 
 </div>
 
-/* ========================= */
 /* BOTON */
-/* ========================= */
 
 <button
 class="main-btn"
@@ -561,11 +549,7 @@ extra = total - 6;
 document.getElementById("sauceInfo").innerHTML =
 `
 ${total} envases
-
-${extra > 0
-? `• +S/${extra}`
-: ""
-}
+${extra > 0 ? ` • +S/${extra}` : ""}
 `;
 
 }
@@ -601,7 +585,7 @@ document.getElementById(id).style.display =
 }
 
 /* ========================= */
-/* AGREGAR CARRITO */
+/* AGREGAR AL CARRITO */
 /* ========================= */
 
 function addToCart(){
@@ -698,8 +682,7 @@ document.getElementById("cartFloat").style.display =
 
 document.getElementById("cartFloat").innerHTML =
 `
-🛒 ${quantity}
-• S/${total}
+🛒 ${quantity} • S/${total}
 `;
 
 }
