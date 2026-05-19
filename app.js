@@ -42,9 +42,10 @@ let qty = 1;
 
 renderProducts(products);
 
-function renderProducts(list) {
+function renderProducts(list){
 
-  const container = document.getElementById("products");
+  const container =
+    document.getElementById("products");
 
   container.innerHTML = list.map(product => `
 
@@ -74,30 +75,33 @@ function renderProducts(list) {
 
 }
 
-function filterProducts(category) {
+function filterProducts(category){
 
-  if (category === "all") {
+  if(category === "all"){
     renderProducts(products);
     return;
   }
 
-  const filtered = products.filter(
-    product => product.category === category
-  );
+  const filtered =
+    products.filter(
+      product => product.category === category
+    );
 
   renderProducts(filtered);
 
 }
 
-function openProduct(id) {
+function openProduct(id){
 
-  selectedProduct = products.find(
-    product => product.id === id
-  );
+  selectedProduct =
+    products.find(
+      product => product.id === id
+    );
 
   qty = 1;
 
-  document.getElementById("productModal").style.display = "flex";
+  document.getElementById("productModal").style.display =
+    "flex";
 
   document.getElementById("modalTitle").innerHTML =
     selectedProduct.name;
@@ -107,7 +111,7 @@ function openProduct(id) {
 
   let html = "";
 
-  if (selectedProduct.category === "pollo") {
+  if(selectedProduct.category === "pollo"){
 
     html += `
 
@@ -118,17 +122,36 @@ function openProduct(id) {
         <div class="option-row">
 
           <div class="option">
+
             <label>
-              <input type="radio" name="size" value="10" checked>
+
+              <input
+                type="radio"
+                name="size"
+                value="10"
+                checked
+              />
+
               1/8 • S/10
+
             </label>
+
           </div>
 
           <div class="option">
+
             <label>
-              <input type="radio" name="size" value="16">
+
+              <input
+                type="radio"
+                name="size"
+                value="16"
+              />
+
               1/4 • S/16
+
             </label>
+
           </div>
 
         </div>
@@ -142,17 +165,34 @@ function openProduct(id) {
         <div class="option-row">
 
           <div class="option">
+
             <label>
-              <input type="radio" name="presa" checked>
+
+              <input
+                type="radio"
+                name="presa"
+                checked
+              />
+
               Pecho + Ala
+
             </label>
+
           </div>
 
           <div class="option">
+
             <label>
-              <input type="radio" name="presa">
+
+              <input
+                type="radio"
+                name="presa"
+              />
+
               Pierna + Encuentro
+
             </label>
+
           </div>
 
         </div>
@@ -186,17 +226,18 @@ function openProduct(id) {
 
 }
 
-function closeModal(id) {
+function closeModal(id){
 
-  document.getElementById(id).style.display = "none";
+  document.getElementById(id).style.display =
+    "none";
 
 }
 
-function changeQty(value) {
+function changeQty(value){
 
   qty += value;
 
-  if (qty < 1) {
+  if(qty < 1){
     qty = 1;
   }
 
@@ -205,15 +246,17 @@ function changeQty(value) {
 
 }
 
-function addToCart() {
+function addToCart(){
 
-  let total = selectedProduct.price * qty;
+  let total =
+    selectedProduct.price * qty;
 
-  if (selectedProduct.category === "pollo") {
+  if(selectedProduct.category === "pollo"){
 
-    const size = document.querySelector(
-      'input[name="size"]:checked'
-    ).value;
+    const size =
+      document.querySelector(
+        'input[name="size"]:checked'
+      ).value;
 
     total = parseFloat(size) * qty;
 
@@ -224,10 +267,10 @@ function addToCart() {
 
   cart.push({
 
-    name: selectedProduct.name,
-    qty: qty,
-    total: total,
-    observation: observation
+    name:selectedProduct.name,
+    qty:qty,
+    total:total,
+    observation:observation
 
   });
 
@@ -237,9 +280,9 @@ function addToCart() {
 
 }
 
-function updateCart() {
+function updateCart(){
 
-  if (cart.length === 0) {
+  if(cart.length === 0){
 
     document.getElementById("cartFloat").style.display =
       "none";
@@ -266,7 +309,7 @@ function updateCart() {
 
 }
 
-function openCart() {
+function openCart(){
 
   document.getElementById("cartModal").style.display =
     "flex";
@@ -275,7 +318,7 @@ function openCart() {
 
 }
 
-function renderCart() {
+function renderCart(){
 
   let subtotal = 0;
 
@@ -296,8 +339,10 @@ function renderCart() {
 
           ${
             item.observation
-            ? `<div>📝 ${item.observation}</div>`
-            : ""
+            ?
+            `<div>📝 ${item.observation}</div>`
+            :
+            ""
           }
 
         </div>
@@ -314,7 +359,7 @@ function renderCart() {
 
 }
 
-function sendWhatsApp() {
+function sendWhatsApp(){
 
   const customerName =
     document.getElementById("customerName").value;
@@ -322,11 +367,13 @@ function sendWhatsApp() {
   let subtotal = 0;
 
   let message =
-    "🍗 *ANTOJAZO FOOD* %0A%0A";
+    "🍔 *ANTOJAZO FOOD* %0A%0A";
 
-  message += `👤 ${customerName}%0A%0A`;
+  message +=
+    `👤 ${customerName}%0A%0A`;
 
-  message += "🛒 *PEDIDO* %0A";
+  message +=
+    "🛒 *PEDIDO* %0A";
 
   cart.forEach(item => {
 
@@ -335,7 +382,7 @@ function sendWhatsApp() {
     message +=
       `• ${item.name} x${item.qty} - S/${item.total}%0A`;
 
-    if (item.observation) {
+    if(item.observation){
 
       message +=
         `📝 ${item.observation}%0A`;
@@ -344,7 +391,8 @@ function sendWhatsApp() {
 
   });
 
-  message += `%0A💵 *TOTAL: S/${subtotal}*`;
+  message +=
+    `%0A💵 *TOTAL: S/${subtotal}*`;
 
   window.open(
     `https://wa.me/${WHATSAPP}?text=${message}`,
