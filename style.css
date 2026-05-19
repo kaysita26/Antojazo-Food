@@ -77,23 +77,22 @@ body{
 /* PRODUCTOS */
 
 .products{
-  display:flex;
-  flex-wrap:wrap;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:24px;
-  align-items:flex-start;
+  align-items:start;
 }
 
 /* TARJETAS */
 
 .card{
-  width:280px;
+  width:100%;
   background:#121212;
   border-radius:28px;
   overflow:hidden;
   transition:.3s;
   border:1px solid rgba(255,184,0,.12);
   box-shadow:0 10px 30px rgba(0,0,0,.35);
-  flex-shrink:0;
 }
 
 .card:hover{
@@ -102,7 +101,7 @@ body{
 
 .card img{
   width:100%;
-  height:190px;
+  height:220px;
   object-fit:cover;
   display:block;
 }
@@ -125,11 +124,11 @@ body{
 /* PRECIO */
 
 .price{
-  font-size:28px;
+  font-size:18px;
   font-weight:800;
   color:#ffb800;
-  margin:18px 0;
-  letter-spacing:-1px;
+  margin:16px 0;
+  letter-spacing:-0.5px;
 }
 
 /* BOTONES */
@@ -219,22 +218,98 @@ body{
   color:#ffb800;
 }
 
+/* OPCIONES COMPACTAS */
+
 .option-row{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  gap:10px;
 }
 
 .option{
   background:#1b1b1b;
-  padding:14px;
+  padding:12px;
   border-radius:16px;
+  min-height:78px;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  transition:.2s;
 }
 
-.option label{
+.option:hover{
+  background:#232323;
+}
+
+.option input{
+  margin-top:5px;
+}
+
+.option-title{
+  font-size:15px;
+  font-weight:700;
+  line-height:1.2;
+}
+
+/* PRECIO OPCIONES */
+
+.option-price{
+  color:#ffb800;
+  font-size:22px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+/* CREMAS */
+
+#saucesContainer{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+.sauce-item{
+  background:#1b1b1b;
+  border-radius:16px;
+  padding:12px;
   display:flex;
-  gap:8px;
+  flex-direction:column;
   align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:100px;
+}
+
+.sauce-name{
+  font-size:14px;
+  font-weight:700;
+  text-align:center;
+}
+
+.sauce-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.sauce-controls button{
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:10px;
+  background:#ffb800;
+  color:black;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.sauce-controls span{
+  min-width:18px;
+  text-align:center;
+  font-size:15px;
+  font-weight:800;
 }
 
 /* CANTIDAD */
@@ -323,7 +398,7 @@ body{
 @media(max-width:900px){
 
   .products{
-    justify-content:center;
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
@@ -348,12 +423,11 @@ body{
   }
 
   .products{
-    justify-content:center;
+    grid-template-columns:1fr;
   }
 
   .card{
-    width:100%;
-    max-width:380px;
+    max-width:100%;
   }
 
   .card img{
@@ -361,7 +435,23 @@ body{
   }
 
   .option-row{
+    grid-template-columns:1fr 1fr;
+  }
+
+  #saucesContainer{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:480px){
+
+  .option-row{
     grid-template-columns:1fr;
+  }
+
+  #saucesContainer{
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
