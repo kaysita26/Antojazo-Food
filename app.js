@@ -3,35 +3,35 @@ const WHATSAPP = "51992044102";
 const products = [
 
   {
-    id: 1,
-    name: "Pollo Broaster",
-    category: "pollo",
-    price: 10,
-    image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
+    id:1,
+    name:"Pollo Broaster",
+    category:"pollo",
+    basePrice:10,
+    image:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
   },
 
   {
-    id: 2,
-    name: "Hamburguesa Clásica",
-    category: "burger",
-    price: 14,
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
+    id:2,
+    name:"Hamburguesa Clásica",
+    category:"burger",
+    basePrice:14,
+    image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
   },
 
   {
-    id: 3,
-    name: "Salchipapa Especial",
-    category: "salchi",
-    price: 15,
-    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
+    id:3,
+    name:"Salchipapa Especial",
+    category:"salchi",
+    basePrice:15,
+    image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
   },
 
   {
-    id: 4,
-    name: "Chicha Morada",
-    category: "drink",
-    price: 5,
-    image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
+    id:4,
+    name:"Chicha Morada",
+    category:"drink",
+    basePrice:5,
+    image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
   }
 
 ];
@@ -42,38 +42,49 @@ let qty = 1;
 
 renderProducts(products);
 
+/* ========================= */
+/* RENDER PRODUCTOS */
+/* ========================= */
+
 function renderProducts(list){
 
   const container =
     document.getElementById("products");
 
-  container.innerHTML = list.map(product => `
+  container.innerHTML =
+    list.map(product => `
 
-    <div class="card">
+      <div class="card">
 
-      <img src="${product.image}" />
+        <img src="${product.image}" />
 
-      <div class="card-body">
+        <div class="card-body">
 
-        <h3>${product.name}</h3>
+          <h3>${product.name}</h3>
 
-        <p>Delicioso y recién preparado</p>
+          <p>
+            Delicioso y recién preparado
+          </p>
 
-        <div class="price">
-          Desde S/${product.price}
+          <div class="price">
+            Desde S/${product.basePrice}
+          </div>
+
+          <button onclick="openProduct(${product.id})">
+            Personalizar
+          </button>
+
         </div>
-
-        <button onclick="openProduct(${product.id})">
-          Personalizar
-        </button>
 
       </div>
 
-    </div>
-
-  `).join("");
+    `).join("");
 
 }
+
+/* ========================= */
+/* FILTROS */
+/* ========================= */
 
 function filterProducts(category){
 
@@ -90,6 +101,10 @@ function filterProducts(category){
   renderProducts(filtered);
 
 }
+
+/* ========================= */
+/* ABRIR PRODUCTO */
+/* ========================= */
 
 function openProduct(id){
 
@@ -111,9 +126,15 @@ function openProduct(id){
 
   let html = "";
 
+  /* ========================= */
+  /* POLLO */
+  /* ========================= */
+
   if(selectedProduct.category === "pollo"){
 
     html += `
+
+      <!-- TAMAÑO -->
 
       <div class="option-group">
 
@@ -121,42 +142,56 @@ function openProduct(id){
 
         <div class="option-row">
 
-          <div class="option">
+          <label class="option">
 
-            <label>
+            <input
+              type="radio"
+              name="size"
+              value="10"
+              checked
+            />
 
-              <input
-                type="radio"
-                name="size"
-                value="10"
-                checked
-              />
+            <div>
 
-              1/8 • S/10
+              <div class="option-title">
+                1/8 BROASTER
+              </div>
 
-            </label>
+              <div class="option-price">
+                +S/10
+              </div>
 
-          </div>
+            </div>
 
-          <div class="option">
+          </label>
 
-            <label>
+          <label class="option">
 
-              <input
-                type="radio"
-                name="size"
-                value="16"
-              />
+            <input
+              type="radio"
+              name="size"
+              value="16"
+            />
 
-              1/4 • S/16
+            <div>
 
-            </label>
+              <div class="option-title">
+                1/4 BROASTER
+              </div>
 
-          </div>
+              <div class="option-price">
+                +S/16
+              </div>
+
+            </div>
+
+          </label>
 
         </div>
 
       </div>
+
+      <!-- PRESAS -->
 
       <div class="option-group">
 
@@ -164,36 +199,146 @@ function openProduct(id){
 
         <div class="option-row">
 
-          <div class="option">
+          <label class="option">
 
-            <label>
+            <input
+              type="radio"
+              name="presa"
+              checked
+            />
 
-              <input
-                type="radio"
-                name="presa"
-                checked
-              />
-
+            <div class="option-title">
               Pecho + Ala
+            </div>
 
-            </label>
+          </label>
 
-          </div>
+          <label class="option">
 
-          <div class="option">
+            <input
+              type="radio"
+              name="presa"
+            />
 
-            <label>
-
-              <input
-                type="radio"
-                name="presa"
-              />
-
+            <div class="option-title">
               Pierna + Encuentro
+            </div>
 
-            </label>
+          </label>
 
-          </div>
+        </div>
+
+      </div>
+
+      <!-- GUARNICIONES -->
+
+      <div class="option-group">
+
+        <h4>Guarniciones</h4>
+
+        <div class="option-row">
+
+          <label class="option">
+
+            <input
+              type="checkbox"
+              checked
+            />
+
+            <div class="option-title">
+              Papas
+            </div>
+
+          </label>
+
+          <label class="option">
+
+            <input
+              type="checkbox"
+              checked
+            />
+
+            <div class="option-title">
+              Ensalada
+            </div>
+
+          </label>
+
+          <label class="option">
+
+            <input
+              type="checkbox"
+              checked
+            />
+
+            <div class="option-title">
+              Arroz
+            </div>
+
+          </label>
+
+          <label class="option">
+
+            <input
+              type="checkbox"
+              id="chaufa"
+            />
+
+            <div>
+
+              <div class="option-title">
+                Chaufa
+              </div>
+
+              <div class="option-price">
+                +S/3
+              </div>
+
+            </div>
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <!-- CREMAS -->
+
+      <div class="option-group">
+
+        <h4>Cremas</h4>
+
+        <div class="option-row">
+
+          <label class="option">
+            <input type="checkbox">
+            <div class="option-title">Mayonesa</div>
+          </label>
+
+          <label class="option">
+            <input type="checkbox">
+            <div class="option-title">Ají</div>
+          </label>
+
+          <label class="option">
+            <input type="checkbox">
+            <div class="option-title">Ketchup</div>
+          </label>
+
+          <label class="option">
+            <input type="checkbox">
+            <div class="option-title">Mostaza</div>
+          </label>
+
+          <label class="option">
+            <input type="checkbox">
+            <div class="option-title">Golf</div>
+          </label>
+
+          <label class="option">
+            <input type="checkbox">
+            <div class="option-title">Tártara</div>
+          </label>
 
         </div>
 
@@ -203,6 +348,10 @@ function openProduct(id){
 
   }
 
+  /* ========================= */
+  /* CANTIDAD */
+  /* ========================= */
+
   html += `
 
     <div class="qty">
@@ -211,7 +360,9 @@ function openProduct(id){
         -
       </button>
 
-      <span id="qtyText">1</span>
+      <span id="qtyText">
+        1
+      </span>
 
       <button onclick="changeQty(1)">
         +
@@ -226,12 +377,20 @@ function openProduct(id){
 
 }
 
+/* ========================= */
+/* CERRAR MODAL */
+/* ========================= */
+
 function closeModal(id){
 
   document.getElementById(id).style.display =
     "none";
 
 }
+
+/* ========================= */
+/* CANTIDAD */
+/* ========================= */
 
 function changeQty(value){
 
@@ -246,10 +405,16 @@ function changeQty(value){
 
 }
 
+/* ========================= */
+/* AGREGAR AL CARRITO */
+/* ========================= */
+
 function addToCart(){
 
   let total =
-    selectedProduct.price * qty;
+    selectedProduct.basePrice * qty;
+
+  /* POLLO */
 
   if(selectedProduct.category === "pollo"){
 
@@ -258,7 +423,17 @@ function addToCart(){
         'input[name="size"]:checked'
       ).value;
 
-    total = parseFloat(size) * qty;
+    total =
+      parseFloat(size) * qty;
+
+    const chaufa =
+      document.getElementById("chaufa");
+
+    if(chaufa && chaufa.checked){
+
+      total += 3 * qty;
+
+    }
 
   }
 
@@ -279,6 +454,10 @@ function addToCart(){
   closeModal("productModal");
 
 }
+
+/* ========================= */
+/* ACTUALIZAR CARRITO */
+/* ========================= */
 
 function updateCart(){
 
@@ -309,6 +488,10 @@ function updateCart(){
 
 }
 
+/* ========================= */
+/* ABRIR CARRITO */
+/* ========================= */
+
 function openCart(){
 
   document.getElementById("cartModal").style.display =
@@ -317,6 +500,10 @@ function openCart(){
   renderCart();
 
 }
+
+/* ========================= */
+/* RENDER CARRITO */
+/* ========================= */
 
 function renderCart(){
 
@@ -331,11 +518,17 @@ function renderCart(){
 
         <div class="cart-item">
 
-          <strong>${item.name}</strong>
+          <strong>
+            ${item.name}
+          </strong>
 
-          <div>x${item.qty}</div>
+          <div>
+            x${item.qty}
+          </div>
 
-          <div>S/${item.total}</div>
+          <div>
+            S/${item.total}
+          </div>
 
           ${
             item.observation
@@ -359,6 +552,10 @@ function renderCart(){
 
 }
 
+/* ========================= */
+/* WHATSAPP */
+/* ========================= */
+
 function sendWhatsApp(){
 
   const customerName =
@@ -367,7 +564,7 @@ function sendWhatsApp(){
   let subtotal = 0;
 
   let message =
-    "🍔 *ANTOJAZO FOOD* %0A%0A";
+    "🍗 *ANTOJAZO FOOD* %0A%0A";
 
   message +=
     `👤 ${customerName}%0A%0A`;
