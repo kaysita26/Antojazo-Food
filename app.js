@@ -1,5 +1,9 @@
 const WHATSAPP = "51992044102";
 
+/* ========================= */
+/* PRODUCTOS */
+/* ========================= */
+
 const products = [
 
 {
@@ -36,6 +40,10 @@ image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
 
 ];
 
+/* ========================= */
+/* SOLO 6 CREMAS */
+/* ========================= */
+
 const sauces = [
 "Mayonesa",
 "Ají",
@@ -45,16 +53,22 @@ const sauces = [
 "Aceituna"
 ];
 
+/* ========================= */
+
 let cart = [];
 let selectedProduct = null;
 let qty = 1;
-let sauceQuantities = new Array(sauces.length).fill(0);
+
+const sauceQuantities =
+new Array(sauces.length).fill(0);
+
+/* ========================= */
 
 renderProducts(products);
 
-/* ======================= */
-/* RENDER PRODUCTOS */
-/* ======================= */
+/* ========================= */
+/* MOSTRAR PRODUCTOS */
+/* ========================= */
 
 function renderProducts(list){
 
@@ -62,7 +76,7 @@ const container =
 document.getElementById("products");
 
 container.innerHTML =
-list.map(product=>`
+list.map(product => `
 
 <div class="card">
 
@@ -92,28 +106,32 @@ Personalizar
 
 }
 
-/* ======================= */
-/* FILTROS */
-/* ======================= */
+/* ========================= */
+/* FILTRAR */
+/* ========================= */
 
 function filterProducts(category){
 
 if(category === "all"){
+
 renderProducts(products);
 return;
+
 }
 
 renderProducts(
+
 products.filter(
 p => p.category === category
 )
+
 );
 
 }
 
-/* ======================= */
+/* ========================= */
 /* ABRIR PRODUCTO */
-/* ======================= */
+/* ========================= */
 
 function openProduct(id){
 
@@ -122,8 +140,13 @@ products.find(p => p.id === id);
 
 qty = 1;
 
-sauceQuantities =
-new Array(sauces.length).fill(0);
+/* reset cremas */
+
+for(let i=0;i<sauceQuantities.length;i++){
+
+sauceQuantities[i] = 0;
+
+}
 
 document.getElementById("productModal").style.display =
 "flex";
@@ -136,9 +159,9 @@ selectedProduct.image;
 
 let html = "";
 
-/* ======================= */
+/* ========================= */
 /* POLLO */
-/* ======================= */
+/* ========================= */
 
 if(selectedProduct.category === "pollo"){
 
@@ -209,6 +232,7 @@ S/16
 class="option-row compact"
 id="presaOptions"
 >
+
 </div>
 
 </div>
@@ -220,18 +244,37 @@ id="presaOptions"
 <div class="option-row compact">
 
 <label class="option small">
+
 <input type="checkbox" checked>
-<div class="option-title">Papas</div>
+
+<div class="option-title">
+Papas
+</div>
+
 </label>
 
 <label class="option small">
-<input type="checkbox" checked id="riceCheck">
-<div class="option-title">Arroz</div>
+
+<input
+type="checkbox"
+checked
+id="riceCheck"
+>
+
+<div class="option-title">
+Arroz
+</div>
+
 </label>
 
 <label class="option small">
+
 <input type="checkbox" checked>
-<div class="option-title">Ensalada</div>
+
+<div class="option-title">
+Ensalada
+</div>
+
 </label>
 
 <label class="option small">
@@ -262,47 +305,24 @@ Chaufa
 
 <div class="option-group">
 
-<h4>Cremas (6 gratis)</h4>
+<h4>
+Cremas (6 gratis)
+</h4>
 
-<div class="sauces-grid">
-
-${sauces.map((sauce,index)=>`
-
-<div class="sauce-card">
-
-<div class="sauce-name">
-${sauce}
-</div>
-
-<div class="sauce-controls">
-
-<button onclick="changeSauce(${index},-1)">
--
-</button>
-
-<span id="sauceQty${index}">
-0
-</span>
-
-<button onclick="changeSauce(${index},1)">
-+
-</button>
-
-</div>
-
-</div>
-
-`).join("")}
+<div
+class="sauces-grid"
+id="saucesContainer"
+>
 
 </div>
 
 <div
-id="sauceInfo"
 style="
 margin-top:12px;
 font-weight:700;
 color:#ffb800;
 "
+id="sauceInfo"
 >
 0 envases
 </div>
@@ -313,9 +333,9 @@ color:#ffb800;
 
 }
 
-/* ======================= */
+/* ========================= */
 /* CANTIDAD */
-/* ======================= */
+/* ========================= */
 
 html += `
 
@@ -341,8 +361,6 @@ html += `
 
 </div>
 
-/* OBSERVACIONES */
-
 <div class="form-group">
 
 <textarea
@@ -351,8 +369,6 @@ placeholder="Observaciones (opcional)"
 ></textarea>
 
 </div>
-
-/* BOTON */
 
 <button
 class="main-btn"
@@ -368,13 +384,15 @@ Agregar al carrito
 document.getElementById("modalOptions").innerHTML =
 html;
 
+renderSauces();
+
 changeChickenOptions("1/8");
 
 }
 
-/* ======================= */
-/* OPCIONES POLLO */
-/* ======================= */
+/* ========================= */
+/* CAMBIAR OPCIONES POLLO */
+/* ========================= */
 
 function changeChickenOptions(type){
 
@@ -388,23 +406,56 @@ if(type === "1/8"){
 container.innerHTML = `
 
 <label class="option small">
-<input type="radio" name="presa" checked>
-<div class="option-title">Pecho</div>
+
+<input
+type="radio"
+name="presa"
+checked
+>
+
+<div class="option-title">
+Pecho
+</div>
+
 </label>
 
 <label class="option small">
-<input type="radio" name="presa">
-<div class="option-title">Ala</div>
+
+<input
+type="radio"
+name="presa"
+>
+
+<div class="option-title">
+Ala
+</div>
+
 </label>
 
 <label class="option small">
-<input type="radio" name="presa">
-<div class="option-title">Pierna</div>
+
+<input
+type="radio"
+name="presa"
+>
+
+<div class="option-title">
+Pierna
+</div>
+
 </label>
 
 <label class="option small">
-<input type="radio" name="presa">
-<div class="option-title">Encuentro</div>
+
+<input
+type="radio"
+name="presa"
+>
+
+<div class="option-title">
+Encuentro
+</div>
+
 </label>
 
 `;
@@ -414,17 +465,30 @@ container.innerHTML = `
 container.innerHTML = `
 
 <label class="option small">
-<input type="radio" name="presa" checked>
+
+<input
+type="radio"
+name="presa"
+checked
+>
+
 <div class="option-title">
 Pecho + Ala
 </div>
+
 </label>
 
 <label class="option small">
-<input type="radio" name="presa">
+
+<input
+type="radio"
+name="presa"
+>
+
 <div class="option-title">
 Pierna + Encuentro
 </div>
+
 </label>
 
 `;
@@ -433,9 +497,9 @@ Pierna + Encuentro
 
 }
 
-/* ======================= */
+/* ========================= */
 /* CHAUFA */
-/* ======================= */
+/* ========================= */
 
 function toggleChaufa(){
 
@@ -457,16 +521,61 @@ rice.checked = true;
 
 }
 
-/* ======================= */
-/* SALSAS */
-/* ======================= */
+/* ========================= */
+/* CREMAS */
+/* ========================= */
+
+function renderSauces(){
+
+const container =
+document.getElementById("saucesContainer");
+
+if(!container) return;
+
+container.innerHTML =
+
+sauces.map((sauce,index)=>`
+
+<div class="sauce-card">
+
+<div class="sauce-name">
+${sauce}
+</div>
+
+<div class="sauce-controls">
+
+<button onclick="changeSauce(${index},-1)">
+-
+</button>
+
+<span id="sauceQty${index}">
+0
+</span>
+
+<button onclick="changeSauce(${index},1)">
++
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+/* ========================= */
+/* CAMBIAR CREMAS */
+/* ========================= */
 
 function changeSauce(index,value){
 
 sauceQuantities[index] += value;
 
 if(sauceQuantities[index] < 0){
+
 sauceQuantities[index] = 0;
+
 }
 
 document.getElementById(
@@ -477,6 +586,10 @@ sauceQuantities[index];
 updateSauceInfo();
 
 }
+
+/* ========================= */
+/* INFO CREMAS */
+/* ========================= */
 
 function updateSauceInfo(){
 
@@ -495,27 +608,31 @@ extra = total - 6;
 }
 
 document.getElementById("sauceInfo").innerHTML =
-`
-${total} envases
 
-${extra > 0
-? `• +S/${extra}`
-: ""
+extra > 0
+
+?
+
+`${total} envases • +S/${extra}`
+
+:
+
+`${total} envases`;
+
 }
-`;
 
-}
-
-/* ======================= */
+/* ========================= */
 /* CANTIDAD */
-/* ======================= */
+/* ========================= */
 
 function changeQty(value){
 
 qty += value;
 
 if(qty < 1){
+
 qty = 1;
+
 }
 
 document.getElementById("qtyText").innerHTML =
@@ -523,9 +640,9 @@ qty;
 
 }
 
-/* ======================= */
+/* ========================= */
 /* CERRAR MODAL */
-/* ======================= */
+/* ========================= */
 
 function closeModal(id){
 
@@ -534,9 +651,9 @@ document.getElementById(id).style.display =
 
 }
 
-/* ======================= */
+/* ========================= */
 /* AGREGAR AL CARRITO */
-/* ======================= */
+/* ========================= */
 
 function addToCart(){
 
@@ -553,13 +670,18 @@ document.querySelector(
 total =
 parseFloat(size) * qty;
 
-if(
-document.getElementById("chaufa").checked
-){
+/* chaufa */
+
+const chaufa =
+document.getElementById("chaufa");
+
+if(chaufa.checked){
 
 total += 3 * qty;
 
 }
+
+/* extra cremas */
 
 const sauceTotal =
 sauceQuantities.reduce(
@@ -601,9 +723,9 @@ closeModal("productModal");
 
 }
 
-/* ======================= */
+/* ========================= */
 /* ACTUALIZAR CARRITO */
-/* ======================= */
+/* ========================= */
 
 function updateCart(){
 
@@ -630,6 +752,7 @@ document.getElementById("cartFloat").style.display =
 "block";
 
 document.getElementById("cartFloat").innerHTML =
+
 `
 🛒 ${quantity}
 • S/${total}
@@ -637,9 +760,9 @@ document.getElementById("cartFloat").innerHTML =
 
 }
 
-/* ======================= */
+/* ========================= */
 /* ABRIR CARRITO */
-/* ======================= */
+/* ========================= */
 
 function openCart(){
 
@@ -650,9 +773,9 @@ renderCart();
 
 }
 
-/* ======================= */
+/* ========================= */
 /* ELIMINAR ITEM */
-/* ======================= */
+/* ========================= */
 
 function removeCartItem(id){
 
@@ -662,19 +785,21 @@ item => item.id !== id
 );
 
 renderCart();
+
 updateCart();
 
 }
 
-/* ======================= */
-/* RENDER CARRITO */
-/* ======================= */
+/* ========================= */
+/* MOSTRAR CARRITO */
+/* ========================= */
 
 function renderCart(){
 
 let subtotal = 0;
 
 document.getElementById("cartItems").innerHTML =
+
 cart.map(item=>{
 
 subtotal += item.total;
@@ -708,10 +833,15 @@ S/${item.total}
 
 ${
 item.observation
+
 ?
+
 `<div>📝 ${item.observation}</div>`
+
 :
+
 ""
+
 }
 
 </div>
@@ -727,7 +857,9 @@ border-radius:10px;
 cursor:pointer;
 "
 >
+
 X
+
 </button>
 
 </div>
@@ -746,9 +878,9 @@ document.getElementById("total").innerHTML =
 
 }
 
-/* ======================= */
-/* WHATSAPP */
-/* ======================= */
+/* ========================= */
+/* ENVIAR WHATSAPP */
+/* ========================= */
 
 function sendWhatsApp(){
 
@@ -786,8 +918,11 @@ message +=
 `%0A💵 *TOTAL: S/${subtotal}*`;
 
 window.open(
+
 `https://wa.me/${WHATSAPP}?text=${message}`,
+
 "_blank"
+
 );
 
 }
