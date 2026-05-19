@@ -1,64 +1,139 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>Antojazo Food</title>
 
-  <link rel="stylesheet" href="style.css"/>
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet"
   />
+
 </head>
 
 <body>
 
+  <!-- HEADER -->
+
   <header class="header">
-    <h1>ANTOJAZO <span>FOOD</span></h1>
-    <p>Pollo Broaster • Hamburguesas • Salchipapas</p>
+
+    <div class="brand">
+
+      <img
+        src="logo.png"
+        class="logo"
+      />
+
+      <div>
+
+        <h1>
+          ANTOJAZO <span>FOOD</span>
+        </h1>
+
+        <p>
+          Pollo Broaster • Hamburguesas • Salchipapas
+        </p>
+
+      </div>
+
+    </div>
+
   </header>
 
+  <!-- CATEGORIAS -->
+
   <div class="categories">
-    <button onclick="filterProducts('all')">Todo</button>
-    <button onclick="filterProducts('pollo')">🍗 Pollos</button>
-    <button onclick="filterProducts('burger')">🍔 Hamburguesas</button>
-    <button onclick="filterProducts('salchi')">🍟 Salchipapas</button>
-    <button onclick="filterProducts('drink')">🥤 Bebidas</button>
+
+    <button onclick="filterProducts('all')">
+      Todo
+    </button>
+
+    <button onclick="filterProducts('pollo')">
+      🍗 Pollos
+    </button>
+
+    <button onclick="filterProducts('burger')">
+      🍔 Hamburguesas
+    </button>
+
+    <button onclick="filterProducts('salchi')">
+      🍟 Salchipapas
+    </button>
+
+    <button onclick="filterProducts('drink')">
+      🥤 Bebidas
+    </button>
+
   </div>
 
-  <div class="products" id="products"></div>
+  <!-- PRODUCTOS -->
 
-  <div class="cart-float" id="cartFloat" onclick="openCart()">
+  <div
+    class="products"
+    id="products"
+  ></div>
+
+  <!-- CARRITO -->
+
+  <div
+    class="cart-float"
+    id="cartFloat"
+    onclick="openCart()"
+  >
     🛒 0 • S/0
   </div>
 
   <!-- MODAL PRODUCTO -->
 
-  <div class="modal" id="productModal">
+  <div
+    class="modal"
+    id="productModal"
+  >
 
     <div class="modal-content">
 
-      <div class="close" onclick="closeModal('productModal')">
+      <div
+        class="close"
+        onclick="closeModal('productModal')"
+      >
         ✕
       </div>
 
-      <img id="modalImage" class="modal-image"/>
+      <img
+        id="modalImage"
+        class="modal-image"
+      />
 
       <h2 id="modalTitle"></h2>
 
       <div id="modalOptions"></div>
 
       <div class="form-group">
+
         <textarea
           id="productObservation"
           placeholder="Observaciones (opcional)"
         ></textarea>
+
       </div>
 
-      <button class="main-btn" onclick="addToCart()">
+      <button
+        class="main-btn"
+        onclick="addToCart()"
+      >
         Agregar al carrito
       </button>
 
@@ -68,11 +143,17 @@
 
   <!-- MODAL CARRITO -->
 
-  <div class="modal" id="cartModal">
+  <div
+    class="modal"
+    id="cartModal"
+  >
 
     <div class="modal-content">
 
-      <div class="close" onclick="closeModal('cartModal')">
+      <div
+        class="close"
+        onclick="closeModal('cartModal')"
+      >
         ✕
       </div>
 
@@ -80,43 +161,44 @@
 
       <div id="cartItems"></div>
 
-      <div class="delivery-type">
-
-        <label>
-          <input
-            type="radio"
-            name="deliveryType"
-            value="local"
-            checked
-          />
-          Recojo en local
-        </label>
-
-      </div>
-
       <div class="form-group">
+
         <input
           type="text"
           id="customerName"
           placeholder="Nombre"
         />
+
       </div>
 
       <div class="summary">
 
         <div>
+
           <span>Subtotal</span>
-          <span id="subtotal">S/0</span>
+
+          <span id="subtotal">
+            S/0
+          </span>
+
         </div>
 
         <div class="total-row">
+
           <span>Total</span>
-          <span id="total">S/0</span>
+
+          <span id="total">
+            S/0
+          </span>
+
         </div>
 
       </div>
 
-      <button class="whatsapp-btn" onclick="sendWhatsApp()">
+      <button
+        class="whatsapp-btn"
+        onclick="sendWhatsApp()"
+      >
         📲 Enviar pedido
       </button>
 
