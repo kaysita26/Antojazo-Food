@@ -1,79 +1,68 @@
-const WHATSAPP="51992044102"
+const WHATSAPP = "51992044102";
 
-const products=[
+const products = [
 
   {
-    id:1,
-    name:"Pollo Broaster",
-    category:"pollo",
-    price:10,
-    image:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
+    id: 1,
+    name: "Pollo Broaster",
+    category: "pollo",
+    price: 10,
+    image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
   },
 
   {
-    id:2,
-    name:"Hamburguesa Clásica",
-    category:"burger",
-    price:14,
-    image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
+    id: 2,
+    name: "Hamburguesa Clásica",
+    category: "burger",
+    price: 14,
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
   },
 
   {
-    id:3,
-    name:"Salchipapa Especial",
-    category:"salchi",
-    price:15,
-    image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
+    id: 3,
+    name: "Salchipapa Especial",
+    category: "salchi",
+    price: 15,
+    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
   },
 
   {
-    id:4,
-    name:"Chicha Morada",
-    category:"drink",
-    price:5,
-    image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
+    id: 4,
+    name: "Chicha Morada",
+    category: "drink",
+    price: 5,
+    image: "https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
   }
 
-]
+];
 
-let cart=[]
-let selectedProduct=null
-let qty=1
+let cart = [];
+let selectedProduct = null;
+let qty = 1;
 
-const creamNames=[
-  "Ají",
-  "Mayonesa",
-  "Ketchup",
-  "Mostaza",
-  "BBQ",
-  "Tártara",
-  "Golf",
-  "Aceituna"
-]
+renderProducts(products);
 
-let creamCounts={}
+function renderProducts(list) {
 
-renderProducts(products)
+  const container = document.getElementById("products");
 
-function renderProducts(list){
-
-  document.getElementById("products").innerHTML=list.map(p=>`
+  container.innerHTML = list.map(product => `
 
     <div class="card">
 
-      <img src="${p.image}">
+      <img src="${product.image}" />
 
       <div class="card-body">
 
-        <h3>${p.name}</h3>
+        <h3>${product.name}</h3>
 
         <p>Delicioso y recién preparado</p>
 
         <div class="price">
-          Desde S/${p.price}
+          Desde S/${product.price}
         </div>
 
-        <button onclick="openProduct(${p.id})">
+        <button onclick="openProduct(${product.id})">
           Personalizar
         </button>
 
@@ -81,46 +70,46 @@ function renderProducts(list){
 
     </div>
 
-  `).join('')
+  `).join("");
 
 }
 
-function filterProducts(category){
+function filterProducts(category) {
 
-  if(category==="all"){
-    renderProducts(products)
-    return
+  if (category === "all") {
+    renderProducts(products);
+    return;
   }
 
-  renderProducts(
-    products.filter(p=>p.category===category)
-  )
+  const filtered = products.filter(
+    product => product.category === category
+  );
+
+  renderProducts(filtered);
 
 }
 
-function openProduct(id){
+function openProduct(id) {
 
-  selectedProduct=products.find(p=>p.id===id)
+  selectedProduct = products.find(
+    product => product.id === id
+  );
 
-  qty=1
+  qty = 1;
 
-  creamCounts={}
+  document.getElementById("productModal").style.display = "flex";
 
-  creamNames.forEach(c=>{
-    creamCounts[c]=0
-  })
+  document.getElementById("modalTitle").innerHTML =
+    selectedProduct.name;
 
-  document.getElementById("productModal").style.display="flex"
+  document.getElementById("modalImage").src =
+    selectedProduct.image;
 
-  document.getElementById("modalTitle").innerHTML=selectedProduct.name
+  let html = "";
 
-  document.getElementById("modalImage").src=selectedProduct.image
+  if (selectedProduct.category === "pollo") {
 
-  let html=''
-
-  if(selectedProduct.category==="pollo"){
-
-    html+=`
+    html += `
 
       <div class="option-group">
 
@@ -170,250 +159,130 @@ function openProduct(id){
 
       </div>
 
-      <div class="option-group">
+    `;
 
-        <h4>Guarniciones</h4>
-
-        <div class="option-row">
-
-          <div class="option">
-            <label>
-              <input type="checkbox" checked>
-              Papas
-            </label>
-          </div>
-
-          <div class="option">
-            <label>
-              <input type="checkbox" checked>
-              Ensalada
-            </label>
-          </div>
-
-          <div class="option">
-            <label>
-              <input type="checkbox" checked>
-              Arroz
-            </label>
-          </div>
-
-          <div class="option">
-            <label>
-              <input type="checkbox">
-              Chaufa +3
-            </label>
-          </div>
-
-        </div>
-
-      </div>
-
-    `
   }
 
-  if(selectedProduct.category==="burger"){
-
-    html+=`
-
-      <div class="option-group">
-
-        <h4>Adicionales</h4>
-
-        <div class="option-row">
-
-          <div class="option">
-            <label>
-              <input type="checkbox">
-              Queso +2
-            </label>
-          </div>
-
-          <div class="option">
-            <label>
-              <input type="checkbox">
-              Huevo +2
-            </label>
-          </div>
-
-          <div class="option">
-            <label>
-              <input type="checkbox">
-              Tocino +3
-            </label>
-          </div>
-
-          <div class="option">
-            <label>
-              <input type="checkbox">
-              Doble carne +5
-            </label>
-          </div>
-
-        </div>
-
-      </div>
-
-    `
-  }
-
-  html+=`
-
-    <div class="option-group">
-
-      <h4>Cremas</h4>
-
-      <div class="creams-grid">
-
-        ${creamNames.map(c=>`
-
-          <div class="cream-item">
-
-            <div class="cream-top">
-              <span>${c}</span>
-              <span id="count-${c}">0</span>
-            </div>
-
-            <div class="cream-controls">
-
-              <button onclick="changeCream('${c}',-1)">
-                -
-              </button>
-
-              <button onclick="changeCream('${c}',1)">
-                +
-              </button>
-
-            </div>
-
-          </div>
-
-        `).join('')}
-
-      </div>
-
-    </div>
+  html += `
 
     <div class="qty">
 
-      <button onclick="changeQty(-1)">-</button>
+      <button onclick="changeQty(-1)">
+        -
+      </button>
 
       <span id="qtyText">1</span>
 
-      <button onclick="changeQty(1)">+</button>
+      <button onclick="changeQty(1)">
+        +
+      </button>
 
     </div>
 
-  `
+  `;
 
-  document.getElementById("modalOptions").innerHTML=html
+  document.getElementById("modalOptions").innerHTML =
+    html;
 
 }
 
-function changeCream(name,value){
+function closeModal(id) {
 
-  creamCounts[name]+=value
+  document.getElementById(id).style.display = "none";
 
-  if(creamCounts[name]<0){
-    creamCounts[name]=0
+}
+
+function changeQty(value) {
+
+  qty += value;
+
+  if (qty < 1) {
+    qty = 1;
   }
 
-  document.getElementById(`count-${name}`).innerHTML=
-    creamCounts[name]
+  document.getElementById("qtyText").innerHTML =
+    qty;
 
 }
 
-function changeQty(value){
+function addToCart() {
 
-  qty+=value
+  let total = selectedProduct.price * qty;
 
-  if(qty<1){
-    qty=1
-  }
+  if (selectedProduct.category === "pollo") {
 
-  document.getElementById("qtyText").innerHTML=qty
+    const size = document.querySelector(
+      'input[name="size"]:checked'
+    ).value;
 
-}
-
-function closeModal(id){
-  document.getElementById(id).style.display="none"
-}
-
-function addToCart(){
-
-  let total=selectedProduct.price*qty
-
-  if(selectedProduct.category==="pollo"){
-
-    const size=
-      document.querySelector(
-        'input[name="size"]:checked'
-      ).value
-
-    total=parseFloat(size)*qty
+    total = parseFloat(size) * qty;
 
   }
 
-  const observation=
-    document.getElementById("productObservation").value
+  const observation =
+    document.getElementById("productObservation").value;
 
   cart.push({
 
-    name:selectedProduct.name,
-    qty,
-    total,
-    creams:{...creamCounts},
-    observation
+    name: selectedProduct.name,
+    qty: qty,
+    total: total,
+    observation: observation
 
-  })
+  });
 
-  updateCart()
+  updateCart();
 
-  closeModal("productModal")
+  closeModal("productModal");
 
 }
 
-function updateCart(){
+function updateCart() {
 
-  if(cart.length===0){
+  if (cart.length === 0) {
 
-    document.getElementById("cartFloat").style.display="none"
+    document.getElementById("cartFloat").style.display =
+      "none";
 
-    return
+    return;
+
   }
 
-  let total=0
-  let qtyTotal=0
+  let total = 0;
+  let quantity = 0;
 
-  cart.forEach(item=>{
+  cart.forEach(item => {
 
-    total+=item.total
-    qtyTotal+=item.qty
+    total += item.total;
+    quantity += item.qty;
 
-  })
+  });
 
-  document.getElementById("cartFloat").style.display="block"
+  document.getElementById("cartFloat").style.display =
+    "block";
 
-  document.getElementById("cartFloat").innerHTML=
-    `🛒 ${qtyTotal} • S/${total}`
-
-}
-
-function openCart(){
-
-  document.getElementById("cartModal").style.display="flex"
-
-  renderCart()
+  document.getElementById("cartFloat").innerHTML =
+    `🛒 ${quantity} • S/${total}`;
 
 }
 
-function renderCart(){
+function openCart() {
 
-  let subtotal=0
+  document.getElementById("cartModal").style.display =
+    "flex";
 
-  document.getElementById("cartItems").innerHTML=
-    cart.map(item=>{
+  renderCart();
 
-      subtotal+=item.total
+}
+
+function renderCart() {
+
+  let subtotal = 0;
+
+  document.getElementById("cartItems").innerHTML =
+    cart.map(item => {
+
+      subtotal += item.total;
 
       return `
 
@@ -427,61 +296,59 @@ function renderCart(){
 
           ${
             item.observation
-            ?
-            `<div>📝 ${item.observation}</div>`
-            :
-            ''
+            ? `<div>📝 ${item.observation}</div>`
+            : ""
           }
 
         </div>
 
-      `
+      `;
 
-    }).join('')
+    }).join("");
 
-  document.getElementById("subtotal").innerHTML=
-    `S/${subtotal}`
+  document.getElementById("subtotal").innerHTML =
+    `S/${subtotal}`;
 
-  document.getElementById("total").innerHTML=
-    `S/${subtotal}`
+  document.getElementById("total").innerHTML =
+    `S/${subtotal}`;
 
 }
 
-function sendWhatsApp(){
+function sendWhatsApp() {
 
-  const name=
-    document.getElementById("customerName").value
+  const customerName =
+    document.getElementById("customerName").value;
 
-  let subtotal=0
+  let subtotal = 0;
 
-  let message=
-    "🍗 *ANTOJAZO FOOD* %0A%0A"
+  let message =
+    "🍗 *ANTOJAZO FOOD* %0A%0A";
 
-  message+=`👤 ${name}%0A%0A`
+  message += `👤 ${customerName}%0A%0A`;
 
-  message+="🛒 *PEDIDO* %0A"
+  message += "🛒 *PEDIDO* %0A";
 
-  cart.forEach(item=>{
+  cart.forEach(item => {
 
-    subtotal+=item.total
+    subtotal += item.total;
 
-    message+=
-      `• ${item.name} x${item.qty} - S/${item.total}%0A`
+    message +=
+      `• ${item.name} x${item.qty} - S/${item.total}%0A`;
 
-    if(item.observation){
+    if (item.observation) {
 
-      message+=
-        `📝 ${item.observation}%0A`
+      message +=
+        `📝 ${item.observation}%0A`;
 
     }
 
-  })
+  });
 
-  message+=`%0A💵 *TOTAL: S/${subtotal}*`
+  message += `%0A💵 *TOTAL: S/${subtotal}*`;
 
   window.open(
     `https://wa.me/${WHATSAPP}?text=${message}`,
     "_blank"
-  )
+  );
 
 }
