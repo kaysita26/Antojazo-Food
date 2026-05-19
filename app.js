@@ -1,4 +1,8 @@
 const settings={
+
+  if(cart.length===0){
+    alert('Tu carrito está vacío')
+    return
   }
 
   const type=document.querySelector('input[name="deliveryType"]:checked').value
@@ -36,6 +40,10 @@ const settings={
 
     message+=`• ${item.name} x${item.qty} - S/${item.total}%0A`
 
+    if(item.observation){
+      message+=`📝 ${item.observation}%0A`
+    }
+
   })
 
   let delivery=0
@@ -55,3 +63,4 @@ const settings={
     '_blank'
   )
 
+}
