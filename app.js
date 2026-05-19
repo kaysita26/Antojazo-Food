@@ -2,38 +2,51 @@ const WHATSAPP = "51992044102";
 
 const products = [
 
-  {
-    id:1,
-    name:"Pollo Broaster",
-    category:"pollo",
-    basePrice:10,
-    image:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
-  },
+{
+id:1,
+name:"Pollo Broaster",
+category:"pollo",
+basePrice:10,
+image:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200"
+},
 
-  {
-    id:2,
-    name:"Hamburguesa Clásica",
-    category:"burger",
-    basePrice:14,
-    image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
-  },
+{
+id:2,
+name:"Hamburguesa Clásica",
+category:"burger",
+basePrice:14,
+image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200"
+},
 
-  {
-    id:3,
-    name:"Salchipapa Especial",
-    category:"salchi",
-    basePrice:15,
-    image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
-  },
+{
+id:3,
+name:"Salchipapa Especial",
+category:"salchi",
+basePrice:15,
+image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200"
+},
 
-  {
-    id:4,
-    name:"Chicha Morada",
-    category:"drink",
-    basePrice:5,
-    image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
-  }
+{
+id:4,
+name:"Chicha Morada",
+category:"drink",
+basePrice:5,
+image:"https://images.unsplash.com/photo-1547592180-85f173990554?w=1200"
+}
 
+];
+
+const sauces = [
+"Mayonesa",
+"Ají",
+"Ketchup",
+"Mostaza",
+"Tártara",
+"Golf",
+"BBQ",
+"Olivo",
+"Picante",
+"Rocoto"
 ];
 
 let cart = [];
@@ -43,557 +56,719 @@ let qty = 1;
 renderProducts(products);
 
 /* ========================= */
-/* RENDER PRODUCTOS */
-/* ========================= */
 
 function renderProducts(list){
 
-  const container =
-    document.getElementById("products");
+const container =
+document.getElementById("products");
 
-  container.innerHTML =
-    list.map(product => `
+container.innerHTML =
+list.map(product => `
 
-      <div class="card">
+<div class="card">
 
-        <img src="${product.image}" />
+<img src="${product.image}">
 
-        <div class="card-body">
+<div class="card-body">
 
-          <h3>${product.name}</h3>
+<h3>${product.name}</h3>
 
-          <p>
-            Delicioso y recién preparado
-          </p>
+<p>
+Delicioso y recién preparado
+</p>
 
-          <div class="price">
-            Desde S/${product.basePrice}
-          </div>
+<div class="price">
+Desde S/${product.basePrice}
+</div>
 
-          <button onclick="openProduct(${product.id})">
-            Personalizar
-          </button>
+<button onclick="openProduct(${product.id})">
+Personalizar
+</button>
 
-        </div>
+</div>
 
-      </div>
+</div>
 
-    `).join("");
+`).join("");
 
 }
 
-/* ========================= */
-/* FILTROS */
 /* ========================= */
 
 function filterProducts(category){
 
-  if(category === "all"){
-    renderProducts(products);
-    return;
-  }
+if(category === "all"){
+renderProducts(products);
+return;
+}
 
-  const filtered =
-    products.filter(
-      product => product.category === category
-    );
-
-  renderProducts(filtered);
+renderProducts(
+products.filter(
+p => p.category === category
+)
+);
 
 }
 
-/* ========================= */
-/* ABRIR PRODUCTO */
 /* ========================= */
 
 function openProduct(id){
 
-  selectedProduct =
-    products.find(
-      product => product.id === id
-    );
+selectedProduct =
+products.find(p => p.id === id);
 
-  qty = 1;
+qty = 1;
 
-  document.getElementById("productModal").style.display =
-    "flex";
+document.getElementById("productModal").style.display =
+"flex";
 
-  document.getElementById("modalTitle").innerHTML =
-    selectedProduct.name;
+document.getElementById("modalTitle").innerHTML =
+selectedProduct.name;
 
-  document.getElementById("modalImage").src =
-    selectedProduct.image;
+document.getElementById("modalImage").src =
+selectedProduct.image;
 
-  let html = "";
+let html = "";
 
-  /* ========================= */
-  /* POLLO */
-  /* ========================= */
+/* ========================= */
+/* POLLO */
+/* ========================= */
 
-  if(selectedProduct.category === "pollo"){
+if(selectedProduct.category === "pollo"){
 
-    html += `
+html += `
 
-      <!-- TAMAÑO -->
+<div class="option-group">
 
-      <div class="option-group">
+<h4>Tamaño</h4>
 
-        <h4>Tamaño</h4>
+<div class="option-row compact">
 
-        <div class="option-row">
+<label class="option small">
 
-          <label class="option">
+<input
+type="radio"
+name="size"
+value="10"
+checked
+onclick="changeChickenOptions('1/8')"
+/>
 
-            <input
-              type="radio"
-              name="size"
-              value="10"
-              checked
-            />
+<div>
 
-            <div>
+<div class="option-title">
+1/8 BROASTER
+</div>
 
-              <div class="option-title">
-                1/8 BROASTER
-              </div>
+<div class="option-price">
+S/10
+</div>
 
-              <div class="option-price">
-                +S/10
-              </div>
+</div>
 
-            </div>
+</label>
 
-          </label>
+<label class="option small">
 
-          <label class="option">
+<input
+type="radio"
+name="size"
+value="16"
+onclick="changeChickenOptions('1/4')"
+/>
 
-            <input
-              type="radio"
-              name="size"
-              value="16"
-            />
+<div>
 
-            <div>
+<div class="option-title">
+1/4 BROASTER
+</div>
 
-              <div class="option-title">
-                1/4 BROASTER
-              </div>
+<div class="option-price">
+S/16
+</div>
 
-              <div class="option-price">
-                +S/16
-              </div>
+</div>
 
-            </div>
+</label>
 
-          </label>
+</div>
 
-        </div>
+</div>
 
-      </div>
+<div class="option-group">
 
-      <!-- PRESAS -->
+<h4>Presa</h4>
 
-      <div class="option-group">
+<div
+class="option-row compact"
+id="presaOptions"
+>
 
-        <h4>Presa</h4>
+</div>
 
-        <div class="option-row">
+</div>
 
-          <label class="option">
+<div class="option-group">
 
-            <input
-              type="radio"
-              name="presa"
-              checked
-            />
+<h4>Guarniciones</h4>
 
-            <div class="option-title">
-              Pecho + Ala
-            </div>
+<div class="option-row compact">
 
-          </label>
+<label class="option small">
+<input type="checkbox" checked>
+<div class="option-title">Papas</div>
+</label>
 
-          <label class="option">
+<label class="option small">
+<input type="checkbox" checked id="riceCheck">
+<div class="option-title">Arroz</div>
+</label>
 
-            <input
-              type="radio"
-              name="presa"
-            />
+<label class="option small">
+<input type="checkbox" checked>
+<div class="option-title">Ensalada</div>
+</label>
 
-            <div class="option-title">
-              Pierna + Encuentro
-            </div>
+<label class="option small">
 
-          </label>
+<input
+type="checkbox"
+id="chaufa"
+onclick="toggleChaufa()"
+>
 
-        </div>
+<div>
 
-      </div>
+<div class="option-title">
+Chaufa
+</div>
 
-      <!-- GUARNICIONES -->
+<div class="option-price">
++S/3
+</div>
 
-      <div class="option-group">
+</div>
 
-        <h4>Guarniciones</h4>
+</label>
 
-        <div class="option-row">
+</div>
 
-          <label class="option">
+</div>
 
-            <input
-              type="checkbox"
-              checked
-            />
+<div class="option-group">
 
-            <div class="option-title">
-              Papas
-            </div>
+<h4>
+Cremas (6 gratis)
+</h4>
 
-          </label>
+<div id="saucesContainer"></div>
 
-          <label class="option">
+<div
+style="
+margin-top:10px;
+color:#ffb800;
+font-weight:700;
+"
+id="sauceInfo"
+>
+0 envases
+</div>
 
-            <input
-              type="checkbox"
-              checked
-            />
+</div>
 
-            <div class="option-title">
-              Ensalada
-            </div>
-
-          </label>
-
-          <label class="option">
-
-            <input
-              type="checkbox"
-              checked
-            />
-
-            <div class="option-title">
-              Arroz
-            </div>
-
-          </label>
-
-          <label class="option">
-
-            <input
-              type="checkbox"
-              id="chaufa"
-            />
-
-            <div>
-
-              <div class="option-title">
-                Chaufa
-              </div>
-
-              <div class="option-price">
-                +S/3
-              </div>
-
-            </div>
-
-          </label>
-
-        </div>
-
-      </div>
-
-      <!-- CREMAS -->
-
-      <div class="option-group">
-
-        <h4>Cremas</h4>
-
-        <div class="option-row">
-
-          <label class="option">
-            <input type="checkbox">
-            <div class="option-title">Mayonesa</div>
-          </label>
-
-          <label class="option">
-            <input type="checkbox">
-            <div class="option-title">Ají</div>
-          </label>
-
-          <label class="option">
-            <input type="checkbox">
-            <div class="option-title">Ketchup</div>
-          </label>
-
-          <label class="option">
-            <input type="checkbox">
-            <div class="option-title">Mostaza</div>
-          </label>
-
-          <label class="option">
-            <input type="checkbox">
-            <div class="option-title">Golf</div>
-          </label>
-
-          <label class="option">
-            <input type="checkbox">
-            <div class="option-title">Tártara</div>
-          </label>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-  /* ========================= */
-  /* CANTIDAD */
-  /* ========================= */
-
-  html += `
-
-    <div class="qty">
-
-      <button onclick="changeQty(-1)">
-        -
-      </button>
-
-      <span id="qtyText">
-        1
-      </span>
-
-      <button onclick="changeQty(1)">
-        +
-      </button>
-
-    </div>
-
-  `;
-
-  document.getElementById("modalOptions").innerHTML =
-    html;
+`;
 
 }
 
 /* ========================= */
-/* CERRAR MODAL */
-/* ========================= */
 
-function closeModal(id){
+html += `
 
-  document.getElementById(id).style.display =
-    "none";
+<div class="qty">
+
+<button onclick="changeQty(-1)">
+-
+</button>
+
+<span id="qtyText">
+1
+</span>
+
+<button onclick="changeQty(1)">
++
+</button>
+
+</div>
+
+<div class="form-group">
+
+<textarea
+id="productObservation"
+placeholder="Observaciones (opcional)"
+></textarea>
+
+</div>
+
+<button
+class="main-btn"
+onclick="addToCart()"
+>
+
+Agregar al carrito
+
+</button>
+
+`;
+
+document.getElementById("modalOptions").innerHTML =
+html;
+
+renderSauces();
+
+changeChickenOptions("1/8");
 
 }
 
 /* ========================= */
-/* CANTIDAD */
+
+function changeChickenOptions(type){
+
+const container =
+document.getElementById("presaOptions");
+
+if(!container) return;
+
+if(type === "1/8"){
+
+container.innerHTML = `
+
+<label class="option small">
+<input type="radio" name="presa" checked>
+<div class="option-title">Pecho</div>
+</label>
+
+<label class="option small">
+<input type="radio" name="presa">
+<div class="option-title">Ala</div>
+</label>
+
+<label class="option small">
+<input type="radio" name="presa">
+<div class="option-title">Pierna</div>
+</label>
+
+<label class="option small">
+<input type="radio" name="presa">
+<div class="option-title">Encuentro</div>
+</label>
+
+`;
+
+}else{
+
+container.innerHTML = `
+
+<label class="option small">
+<input type="radio" name="presa" checked>
+<div class="option-title">
+Pecho + Ala
+</div>
+</label>
+
+<label class="option small">
+<input type="radio" name="presa">
+<div class="option-title">
+Pierna + Encuentro
+</div>
+</label>
+
+`;
+
+}
+
+}
+
+/* ========================= */
+
+function toggleChaufa(){
+
+const chaufa =
+document.getElementById("chaufa");
+
+const rice =
+document.getElementById("riceCheck");
+
+if(chaufa.checked){
+
+rice.checked = false;
+
+}else{
+
+rice.checked = true;
+
+}
+
+}
+
+/* ========================= */
+
+function renderSauces(){
+
+const container =
+document.getElementById("saucesContainer");
+
+if(!container) return;
+
+container.innerHTML =
+sauces.map((sauce,index)=>`
+
+<div class="sauce-item">
+
+<div class="sauce-name">
+${sauce}
+</div>
+
+<div class="sauce-controls">
+
+<button onclick="changeSauce(${index},-1)">
+-
+</button>
+
+<span id="sauceQty${index}">
+0
+</span>
+
+<button onclick="changeSauce(${index},1)">
++
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+/* ========================= */
+
+const sauceQuantities = new Array(10).fill(0);
+
+function changeSauce(index,value){
+
+sauceQuantities[index] += value;
+
+if(sauceQuantities[index] < 0){
+sauceQuantities[index] = 0;
+}
+
+document.getElementById(
+`sauceQty${index}`
+).innerHTML =
+sauceQuantities[index];
+
+updateSauceInfo();
+
+}
+
+/* ========================= */
+
+function updateSauceInfo(){
+
+const total =
+sauceQuantities.reduce(
+(a,b)=>a+b,
+0
+);
+
+let extra = 0;
+
+if(total > 6){
+
+extra =
+Math.ceil((total - 6)/1);
+
+}
+
+document.getElementById("sauceInfo").innerHTML =
+`
+${total} envases
+
+${extra > 0
+? `• +S/${extra}`
+: ""
+}
+`;
+
+}
+
 /* ========================= */
 
 function changeQty(value){
 
-  qty += value;
+qty += value;
 
-  if(qty < 1){
-    qty = 1;
-  }
+if(qty < 1){
+qty = 1;
+}
 
-  document.getElementById("qtyText").innerHTML =
-    qty;
+document.getElementById("qtyText").innerHTML =
+qty;
 
 }
 
 /* ========================= */
-/* AGREGAR AL CARRITO */
+
+function closeModal(id){
+
+document.getElementById(id).style.display =
+"none";
+
+}
+
 /* ========================= */
 
 function addToCart(){
 
-  let total =
-    selectedProduct.basePrice * qty;
+let total =
+selectedProduct.basePrice * qty;
 
-  /* POLLO */
+if(selectedProduct.category === "pollo"){
 
-  if(selectedProduct.category === "pollo"){
+const size =
+document.querySelector(
+'input[name="size"]:checked'
+).value;
 
-    const size =
-      document.querySelector(
-        'input[name="size"]:checked'
-      ).value;
+total =
+parseFloat(size) * qty;
 
-    total =
-      parseFloat(size) * qty;
+const chaufa =
+document.getElementById("chaufa");
 
-    const chaufa =
-      document.getElementById("chaufa");
+if(chaufa.checked){
 
-    if(chaufa && chaufa.checked){
-
-      total += 3 * qty;
-
-    }
-
-  }
-
-  const observation =
-    document.getElementById("productObservation").value;
-
-  cart.push({
-
-    name:selectedProduct.name,
-    qty:qty,
-    total:total,
-    observation:observation
-
-  });
-
-  updateCart();
-
-  closeModal("productModal");
+total += 3 * qty;
 
 }
 
-/* ========================= */
-/* ACTUALIZAR CARRITO */
+const sauceTotal =
+sauceQuantities.reduce(
+(a,b)=>a+b,
+0
+);
+
+if(sauceTotal > 6){
+
+total +=
+(sauceTotal - 6);
+
+}
+
+}
+
+const observation =
+document.getElementById(
+"productObservation"
+).value;
+
+cart.push({
+
+id:Date.now(),
+
+name:selectedProduct.name,
+
+qty,
+
+total,
+
+observation
+
+});
+
+updateCart();
+
+closeModal("productModal");
+
+}
+
 /* ========================= */
 
 function updateCart(){
 
-  if(cart.length === 0){
+if(cart.length === 0){
 
-    document.getElementById("cartFloat").style.display =
-      "none";
+document.getElementById("cartFloat").style.display =
+"none";
 
-    return;
-
-  }
-
-  let total = 0;
-  let quantity = 0;
-
-  cart.forEach(item => {
-
-    total += item.total;
-    quantity += item.qty;
-
-  });
-
-  document.getElementById("cartFloat").style.display =
-    "block";
-
-  document.getElementById("cartFloat").innerHTML =
-    `🛒 ${quantity} • S/${total}`;
+return;
 
 }
 
-/* ========================= */
-/* ABRIR CARRITO */
+let total = 0;
+let quantity = 0;
+
+cart.forEach(item=>{
+
+total += item.total;
+quantity += item.qty;
+
+});
+
+document.getElementById("cartFloat").style.display =
+"block";
+
+document.getElementById("cartFloat").innerHTML =
+`
+🛒 ${quantity}
+• S/${total}
+`;
+
+}
+
 /* ========================= */
 
 function openCart(){
 
-  document.getElementById("cartModal").style.display =
-    "flex";
+document.getElementById("cartModal").style.display =
+"flex";
 
-  renderCart();
+renderCart();
 
 }
 
 /* ========================= */
-/* RENDER CARRITO */
+
+function removeCartItem(id){
+
+cart =
+cart.filter(
+item => item.id !== id
+);
+
+renderCart();
+updateCart();
+
+}
+
 /* ========================= */
 
 function renderCart(){
 
-  let subtotal = 0;
+let subtotal = 0;
 
-  document.getElementById("cartItems").innerHTML =
-    cart.map(item => {
+document.getElementById("cartItems").innerHTML =
+cart.map(item=>{
 
-      subtotal += item.total;
+subtotal += item.total;
 
-      return `
+return `
 
-        <div class="cart-item">
+<div class="cart-item">
 
-          <strong>
-            ${item.name}
-          </strong>
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+"
+>
 
-          <div>
-            x${item.qty}
-          </div>
+<div>
 
-          <div>
-            S/${item.total}
-          </div>
+<strong>
+${item.name}
+</strong>
 
-          ${
-            item.observation
-            ?
-            `<div>📝 ${item.observation}</div>`
-            :
-            ""
-          }
+<div>
+x${item.qty}
+</div>
 
-        </div>
+<div>
+S/${item.total}
+</div>
 
-      `;
+${
+item.observation
+?
+`<div>📝 ${item.observation}</div>`
+:
+""
+}
 
-    }).join("");
+</div>
 
-  document.getElementById("subtotal").innerHTML =
-    `S/${subtotal}`;
+<button
+onclick="removeCartItem(${item.id})"
+style="
+background:red;
+border:none;
+color:white;
+padding:8px 12px;
+border-radius:10px;
+cursor:pointer;
+"
+>
+X
+</button>
 
-  document.getElementById("total").innerHTML =
-    `S/${subtotal}`;
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+document.getElementById("subtotal").innerHTML =
+`S/${subtotal}`;
+
+document.getElementById("total").innerHTML =
+`S/${subtotal}`;
 
 }
 
 /* ========================= */
-/* WHATSAPP */
-/* ========================= */
 
 function sendWhatsApp(){
 
-  const customerName =
-    document.getElementById("customerName").value;
+const customerName =
+document.getElementById("customerName").value;
 
-  let subtotal = 0;
+let subtotal = 0;
 
-  let message =
-    "🍗 *ANTOJAZO FOOD* %0A%0A";
+let message =
+"🍗 *ANTOJAZO FOOD* %0A%0A";
 
-  message +=
-    `👤 ${customerName}%0A%0A`;
+message +=
+`👤 ${customerName}%0A%0A`;
 
-  message +=
-    "🛒 *PEDIDO* %0A";
+message +=
+"🛒 *PEDIDO* %0A";
 
-  cart.forEach(item => {
+cart.forEach(item=>{
 
-    subtotal += item.total;
+subtotal += item.total;
 
-    message +=
-      `• ${item.name} x${item.qty} - S/${item.total}%0A`;
+message +=
+`• ${item.name} x${item.qty} - S/${item.total}%0A`;
 
-    if(item.observation){
+if(item.observation){
 
-      message +=
-        `📝 ${item.observation}%0A`;
+message +=
+`📝 ${item.observation}%0A`;
 
-    }
+}
 
-  });
+});
 
-  message +=
-    `%0A💵 *TOTAL: S/${subtotal}*`;
+message +=
+`%0A💵 *TOTAL: S/${subtotal}*`;
 
-  window.open(
-    `https://wa.me/${WHATSAPP}?text=${message}`,
-    "_blank"
-  );
+window.open(
+`https://wa.me/${WHATSAPP}?text=${message}`,
+"_blank"
+);
 
 }
