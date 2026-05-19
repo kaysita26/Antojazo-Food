@@ -1,4 +1,13 @@
 *{
+  height:36px;
+  border:none;
+  border-radius:12px;
+  background:#ffb300;
+  font-weight:700;
+}
+
+.main-btn,
+.whatsapp-btn{
   width:100%;
   border:none;
   padding:16px;
