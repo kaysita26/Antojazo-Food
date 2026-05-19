@@ -66,6 +66,7 @@ body{
   white-space:nowrap;
   font-weight:700;
   transition:.3s;
+  flex-shrink:0;
 }
 
 .categories button:hover{
@@ -76,11 +77,13 @@ body{
 /* PRODUCTOS */
 
 .products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,280px));
+  display:flex;
+  flex-wrap:wrap;
   gap:24px;
-  justify-content:start;
+  align-items:flex-start;
 }
+
+/* TARJETAS */
 
 .card{
   width:280px;
@@ -90,6 +93,7 @@ body{
   transition:.3s;
   border:1px solid rgba(255,184,0,.12);
   box-shadow:0 10px 30px rgba(0,0,0,.35);
+  flex-shrink:0;
 }
 
 .card:hover{
@@ -118,6 +122,8 @@ body{
   line-height:1.4;
 }
 
+/* PRECIO */
+
 .price{
   font-size:28px;
   font-weight:800;
@@ -125,6 +131,8 @@ body{
   margin:18px 0;
   letter-spacing:-1px;
 }
+
+/* BOTONES */
 
 .card button{
   width:100%;
@@ -200,6 +208,8 @@ body{
   margin-bottom:20px;
 }
 
+/* OPCIONES */
+
 .option-group{
   margin-top:22px;
 }
@@ -227,6 +237,8 @@ body{
   align-items:center;
 }
 
+/* CANTIDAD */
+
 .qty{
   display:flex;
   align-items:center;
@@ -243,6 +255,8 @@ body{
   font-weight:900;
   cursor:pointer;
 }
+
+/* FORM */
 
 .form-group textarea,
 .form-group input{
@@ -279,6 +293,8 @@ body{
   cursor:pointer;
 }
 
+/* ITEMS CARRITO */
+
 .cart-item{
   background:#1b1b1b;
   padding:16px;
@@ -304,7 +320,7 @@ body{
 
 /* RESPONSIVE */
 
-@media(max-width:1200px){
+@media(max-width:900px){
 
   .products{
     justify-content:center;
@@ -318,6 +334,10 @@ body{
     padding:16px;
   }
 
+  .brand{
+    align-items:flex-start;
+  }
+
   .header h1{
     font-size:38px;
   }
@@ -327,17 +347,13 @@ body{
     height:70px;
   }
 
-  .brand{
-    align-items:flex-start;
-  }
-
   .products{
-    grid-template-columns:1fr;
     justify-content:center;
   }
 
   .card{
     width:100%;
+    max-width:380px;
   }
 
   .card img{
