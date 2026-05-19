@@ -384,8 +384,9 @@ Agregar al carrito
 document.getElementById("modalOptions").innerHTML =
 html;
 
-renderSauces();
+if(selectedProduct.category === "pollo"){
 
+renderSauces();
 changeChickenOptions("1/8");
 
 }
